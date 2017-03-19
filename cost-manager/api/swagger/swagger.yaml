@@ -1,12 +1,12 @@
 swagger: "2.0"
 info:
   version: "0.0.1"
-  title: Hello World App
+  title: Cost-Manger
 # during dev, should point to your local machine
 host: localhost:10010
-# basePath prefixes all resource paths 
+# basePath prefixes all resource paths
 basePath: /
-# 
+#
 schemes:
   # tip: remove http to make production-grade
   - http
@@ -18,105 +18,95 @@ consumes:
 produces:
   - application/json
 paths:
-  /:
-     get:
-      description: "This endpoint returns all todos available in the database"
-      operationId: "GetAllTodos"
-      parameters: []
-      responses:
-        200:
-          description: "An array of todos"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Todo"
-    x-swagger-router-controller:
-      "GetAllTodos"
-    post:
-      description: "Add a new Todo"
-      operationId: "AddTodo"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "todo"
-        description: "the Todo to be added"
-        required: true
-        schema: 
-          $ref: "#/definitions/Todo" 
-      responses:
-        200:
-          description: "Successful Todo add"
-      x-swagger-router-controller: 
-        "AddTodo"
-  /todo/{id}:
+  /flights/{id}:
     get:
-      description: "Retrieve a single todo by id"
-      operationId: "FindTodoById"
+      description: "Retrieve a single flight by id"
+      x-swagger-router-controller:
+        "FlightById"
+      operationId: "FlightById"
       produces:
       - "application/json"
       parameters:
       - name: "id"
         in: "path"
-        description: "ID of the todo to get"
+        description: "ID of the flights to get"
         required: true
         type: "integer"
         format: "int64"
       responses:
         200:
-          description: "Todo response"
+          description: Success
           schema:
-            $ref: "#/definitions/Todo"
-      x-swagger-router-controller:
-        "FindTodoById"
+            $ref: "#/definitions/flight"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
     delete:
       description: "Delete a todo by Id"
       operationId: "DeleteTodoById"
       parameters:
       - name: "id"
         in: "path"
-        description: "id of the todo to delete"
+        description: "id of the flight to delete"
         required: true
         type: "integer"
         format: "int64"
       responses:
         204:
-          description: "todo deleted"
+          description: "flight deleted"
       x-swagger-router-controller:
-        "DeleteTodoById"
+        "DeleteFlightById"
     put:
       description: "Update a single to by id"
       operationId: "UpdateTodoById"
       parameters:
       - name: "id"
         in: "path"
-        description: "Id of the todo being updated"
+        description: "Id of the flight being added"
         required: true
         type: "integer"
         format: "int64"
       - name: "updated_todo"
         in: "body"
-        description: "the updated todo"
+        description: "the added flight"
         required: true
         schema:
-          $ref: "#/definitions/Todo"
+          $ref: "#/definitions/flight"
       responses:
         200:
-          description: "Todo updated"
+          description: "flight added"
         400:
-          description: "Yikes! An error!"
-        
+          description: "We have an error!"
+
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
-  HelloWorldResponse:
-    required:
-      - message
-    properties:
-      message:
-        type: string
-  ErrorResponse:
+ flight:
+  type: "object"
+  properties:
+    flight_id:
+      type: "integer"
+      description: "Id for the flight"
+    current_city:
+      type: "string"
+      description: "current_city for the flight"
+    departure:
+      type: "string"
+      format: "date-time"
+      description: "Timestamp the flight departured"
+    arrivial:
+      type: "string"
+      format: "date-time"
+      description: "Timestamp the flight arrival"
+    price:
+      type: "integer"
+      description: "the air plan ticket price"
+    airline:
+      type: "string"
+      description: "the name of the airline"
+ErrorResponse:
     required:
       - message
     properties:
