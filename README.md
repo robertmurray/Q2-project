@@ -125,8 +125,8 @@ we are using github and clubhouse to work together.
   * GET /users  ----------   [{id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}, {}, {} ,{}] \
   * Get /users/:user_id -------------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget} \
   * POST /users --------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}\
-  * GET /user{user_id}/package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]\
-  POST /user{user_id}/package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]\
+  * GET /user: user_id/package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]\
+  POST /user: user_id /package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]\
   * UPDATE /user{user_id}/package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]\
   DELETE /user/:user_id/package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]
 
