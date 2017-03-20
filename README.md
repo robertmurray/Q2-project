@@ -110,15 +110,16 @@ PackaVacay
 * Use a tracking software like trello or gihub issues.
 * Should include all API end points as well details on the input and output to these endpoints
 
+we are using github and clubhouse to work together.\
 *  NOTE: User need to enter the destination city and so we decide to use city column to connect flight table, restaurant table, and hotel table.
 
 * Here are the ROUTE:
-* GET /flight            
-* GET/restaurant
-* GET/hotel
+1. GET /flight  \           
+  GET/restaurant \
+  GET/hotel
 
-* GET /user             request to sign-up for User Account.
-* GET /user{user_id}    login to user account.
+2.  GET /user             request to sign-up for User Account.\
+    GET /user{user_id}    login to user account.
 
 * GET /flight/city         get flight info
 * POST /flight/city        add flight information
