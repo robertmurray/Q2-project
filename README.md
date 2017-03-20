@@ -122,14 +122,16 @@ we are using github and clubhouse to work together.
   GET/hotel ------------- [{id:1, name:Hilton, city_name: France, street_name: string, date: string, user_id: 12}, {}, {}]
 
 2.
-  GET /user  ----------   [{id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}, {}, {} ,{}] \
-  POST /user --------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}\
+  GET /users  ----------   [{id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}, {}, {} ,{}] \
+  Get /users/:user_id -------------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget} \
+  POST /users --------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}\
   GET /user{user_id}/package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]
 
 3.
-  GET /flight/:flight_id         get flight info
-  GET /hotel/:hotel_id        get hotel info
-  GET /restaurant/restaurant_id        get restaurant info
+  GET /flight/:flight_id ------ {id: 1, airline: United AirLine, flight_number: 2000,       destination_city: France, departure_city: San Francisco, arrival_date: 3/30/2017, cost:1200, user_id: 12} \
+
+  GET /hotel/:hotel_id ------------- {id: 1, name: Hilton, city_name: San_Francisco Cost: 30, user_id: 12} \
+  GET /restaurant/:restaurant_id ---------- {id: 1, name: Soma_Eat, city_name: San_Francisco, street_name: 2nd_Street, cost:30, user_id: 1 } \
 
 * GET /user/{user_id}/mypackages/   --------- [{id: 1, user_id: 1, cost: $500, flight_id: 1, hotel_id: 1, restaurant_id: 1, departure_date: 04/05/2017, arrival_date: 4/05/2017}, {...}]
 * GET /user/{user_id}/mypackages/{package_id}   -------- {id: 1, user_id:1, cost: $500, flight_id: 1, hotel_id:1, restaurant_id: 2, departure_date: 03/04/2017, arrival_date: 04/05/2017}
