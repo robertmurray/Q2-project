@@ -8,12 +8,6 @@ exports.up = function(knex, Promise) {
     table.date('departure_date');
     table.date('arrival_date');
     table.float('cost');
-    table.integer('user_id')
-            .references('id')
-            .inTable('users')
-            .notNullable()
-            .onDelete('CASCADE')
-            .index();
   });
 };
 

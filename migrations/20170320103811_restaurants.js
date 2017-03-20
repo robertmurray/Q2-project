@@ -6,12 +6,6 @@ exports.up = function(knex, Promise) {
     table.string('street_name');
     table.string('city_name');
     table.float('cost');
-    table.integer('user_id')
-           .references('id')
-           .inTable('users')
-           .notNullable()
-           .onDelete('CASCADE')
-           .index();
   });
 };
 
