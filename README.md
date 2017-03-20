@@ -25,10 +25,10 @@ PackaVacay
 
 * This project will consist of four tables hotel , fights, restaurant and user table and finally the user_package table. This app is for people who travel to another country and find the closest hotel, restaurant, and restaurant. users can also add the preference of their choices to a user package table so they know what restaurant, hotel and flight. If we are able to get to the end of the project, we will build a price optimization feature, where users can input relevant amount of budge restriction, the app will provide them an list of preference for them. For now, we will focus on building the relationship on the core three main tables first. They are hotel, flights, and restaurant.
 
-* users send GET request to see the user info
-* users send POST request to add user info
-* users send PUT change their person information
-* users send DELETE requests to delete the flight information.
+1. users send GET request to see the user info
+ users send POST request to add user info
+ users send PUT change their person information
+ users send DELETE requests to delete the flight information.
 
 * users send GET view the package information
 * users send POST add info to the package
