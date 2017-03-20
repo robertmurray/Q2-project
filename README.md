@@ -28,27 +28,27 @@ PackaVacay
 1. users send GET request to see the user info \
  users send POST request to add user info \
  users send PUT change their person information \
- users send DELETE requests to delete the flight information. \
+ users send DELETE requests to delete the flight information.
 
 2. users send GET view the package information \
  users send POST add info to the package \
  users send PUT update info to the package \
- users send DELETE delete info to the package. \
+ users send DELETE delete info to the package.
 
 3. users send GET requests to view a flight information \
  users send POST requests to add a flight information if it is not existed \
  users send PUT requests to update previous routines \
- users send DELETE request to delete the flight information. \
+ users send DELETE request to delete the flight information.
 
 4. users send GET requests to view a hotel information \
  users send POST requests to add a hotel information if it is not existed \
  users send PUT requests to update hotel info \
- users send DELETE request to delete the hotel info \
+ users send DELETE request to delete the hotel info
 
 5. users send GET requests to view a restaurant information \
  users send POST requests to add a restaurant information if it doesn't existet\
  users send PUT requests to update previous the restaurant review\
- users send DELETE requests to delete the flight information.\
+ users send DELETE requests to delete the flight information.
 
 
 ## Who uses it? (from the point of view of end users of your fullstack app)
