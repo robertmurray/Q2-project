@@ -4,9 +4,9 @@ info:
   title: Hello World App
 # during dev, should point to your local machine
 host: localhost:10010
-# basePath prefixes all resource paths 
+# basePath prefixes all resource paths
 basePath: /
-# 
+#
 schemes:
   # tip: remove http to make production-grade
   - http
@@ -32,6 +32,58 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /restaurant:
+    x-swagger-router-controller: restaurant
+    get:
+      description: get the restaurant info
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetRestaurantResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /hotel:
+    x-swagger-router-controller: hotel
+    get:
+      description: get the hotel info
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetHotelResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /users:
+    x-swagger-router-controller: users
+    get:
+      description: get users info
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetUsersResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      description: update user info
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/PostUsersResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /hello:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
@@ -64,34 +116,105 @@ definitions:
     required:
       - id
       - airline
-      - flight_number
+      - cost
       - destination_city
       - departure_city
       - arrival_date
-      - cost
+      - departure_date
+
     properties:
-      id: 
+      id:
         type: integer
       airline:
         type: string
-      flight_number:
-        type: string
+      cost:
+        type: integer
       destination_city:
         type: string
       departure_city:
         type: string
       arrival_date:
         type: string
-      cost: 
+      departure_date:
+        type: string
+
+  GetRestaurantResponse:
+    required:
+      - id
+      - name
+      - city_name
+      - street_name
+      - cost
+    properties:
+      id:
         type: integer
-        
+      name:
+        type: string
+      city_name:
+        type: string
+      street_name:
+        type: string
+      cost:
+        type: integer
+
+  GetHotelResponse:
+    required:
+      - id
+      - name
+      - city_name
+      - street_name
+      - cost
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      city_name:
+        type: string
+      street_name:
+        type: string
+      cost:
+        type: integer
+
+  GetUsersResponse:
+    required:
+      - id
+      - first_name
+      - last_name
+      - username
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      username:
+        type: string
+
+  PostUsersResponse:
+    required:
+      - id
+      - first_name
+      - last_name
+      - username
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      username:
+        type: string
+
   HelloWorldResponse:
     required:
       - message
     properties:
       message:
         type: string
-        
+
   ErrorResponse:
     required:
       - message
