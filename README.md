@@ -115,16 +115,16 @@ we are using github and clubhouse to work together.\
 
  Here are the ROUTE:
 1.
-  GET /flight   [{id: 1, airline: United AirLine, flight_number: 2000,       destination_city: France, departure_city: San Francisco, arrival_date: 3/30/2017, cost:1200, user_id: 12}, {},{},..... }          
+  GET /flight -------- [{id: 1, airline: United AirLine, flight_number: 2000,       destination_city: France, departure_city: San Francisco, arrival_date: 3/30/2017, cost:1200, user_id: 12}, {},{},..... }          
 
-  GET/restaurant [{id: 1, name: Soma Eat, city_name: France Cost: 30, user_id: 12}, {}, {},...]
+  GET/restaurant ------- [{id: 1, name: Soma Eat, city_name: France Cost: 30, user_id: 12}, {}, {},...]
 
-  GET/hotel [{id:1, name:Hilton, city_name: France, street_name: string, date: string, user_id: 12}, {}, {}]
+  GET/hotel ------------- [{id:1, name:Hilton, city_name: France, street_name: string, date: string, user_id: 12}, {}, {}]
 
 2.
-  GET /user         [{id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}, {}, {} ,{}] \
-  POST /user  {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}\
-  GET /user{user_id}/package    [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}] 
+  GET /user  ----------   [{id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}, {}, {} ,{}] \
+  POST /user --------- {id: 1, hashed_password: xxxxxx, first_name, last_name:, user_name, destination_city, departure_date, arrival_date, budget}\
+  GET /user{user_id}/package    [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]
 
 3.
   GET /flight/{flight_id}         get flight info
