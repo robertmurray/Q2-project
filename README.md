@@ -127,22 +127,11 @@ we are using github and clubhouse to work together.
   GET /user{user_id}/package  --------  [{id: 1, first_name: Kevin, last_name: zheng, flight_id: 2000, restaurant_id: 200, hotel_id:400}]
 
 3.
-  GET /flight/{flight_id}         get flight info
-  POST /flight/city        add flight information
-  PUT /flight/city         update flight information
-  DELETE /flight/city      delete flight information
+  GET /flight/:flight_id         get flight info
+  GET /hotel/:hotel_id        get hotel info
+  GET /restaurant/restaurant_id        get restaurant info
 
-* GET /hotel/city         get hotel info
-* POST /hotel/city        add hotel info
-* PUT /hotel/city         update hotel info
-* DELETE /hotel/city      delete hotel info
-
-* GET /restaurant/city         get restaurant info
-* POST /restaurant/city        add restaurant information
-* PUT /restaurant/city         update restaurant information
-* DELETE /restaurant/city      delete restaurant information
-
-* GET /user/{user_id}/mypackages/     get information of all the user's preference
+* GET /user/{user_id}/mypackages/   get information of all the user's preference
 * GET /user/{user_id}/mypackages/{package_id}          to view specific package.
 * POST /user/{user_id}/mypackages/{package_id}               insert  preference
 * PUT /user/{user_id}/mypackages/{package_id}        to modify specific package.
