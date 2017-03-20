@@ -130,8 +130,8 @@ we are using github and clubhouse to work together.
 3.
   GET /flight/:flight_id ------ {id: 1, airline: United AirLine, flight_number: 2000,       destination_city: France, departure_city: San Francisco, arrival_date: 3/30/2017, cost:1200, user_id: 12} \
 
-  GET /hotel/:hotel_id        {id: 1, name: Soma Eat, city_name: France Cost: 30, user_id: 12} \
-  GET /restaurant/:restaurant_id        get restaurant info
+  GET /hotel/:hotel_id ------------- {id: 1, name: Hilton, city_name: San_Francisco Cost: 30, user_id: 12} \
+  GET /restaurant/:restaurant_id ---------- {id: 1, name: Soma_Eat, city_name: San_Francisco, street_name: 2nd_Street, cost:30, user_id: 1 } \
 
 * GET /user/{user_id}/mypackages/   get information of all the user's preference
 * GET /user/{user_id}/mypackages/{package_id}          to view specific package.
