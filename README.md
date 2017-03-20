@@ -114,7 +114,7 @@ we are using github and clubhouse to work together.\
 *  NOTE: User need to enter the destination city and so we decide to use city column to connect flight table, restaurant table, and hotel table.
 
 * Here are the ROUTE:
-1. GET /flight  \           
+1. GET /flight             
   GET/restaurant \
   GET/hotel
 
