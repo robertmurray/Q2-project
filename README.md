@@ -131,11 +131,11 @@ we are using github and clubhouse to work together.
   GET /hotel/:hotel_id        get hotel info
   GET /restaurant/restaurant_id        get restaurant info
 
-* GET /user/{user_id}/mypackages/   get information of all the user's preference
-* GET /user/{user_id}/mypackages/{package_id}          to view specific package.
-* POST /user/{user_id}/mypackages/{package_id}               insert  preference
-* PUT /user/{user_id}/mypackages/{package_id}        to modify specific package.
-* DELETE /user/{user_id}/mypackages/{package_id}     to delete specific package.
+* GET /user/{user_id}/mypackages/   --------- [{id: 1, user_id: 1, cost: $500, flight_id: 1, hotel_id: 1, restaurant_id: 1, departure_date: 04/05/2017, arrival_date: 4/05/2017}, {...}]
+* GET /user/{user_id}/mypackages/{package_id}   -------- {id: 1, user_id:1, cost: $500, flight_id: 1, hotel_id:1, restaurant_id: 2, departure_date: 03/04/2017, arrival_date: 04/05/2017}
+* POST /user/{user_id}/mypackages/{package_id}  -------- {id: 3, user_id:2, cost: $400, flight_id: 1, hotel_id:1, restaurant_id: 2, departure_date: 03/04/2017, arrival_date: 04/05/2017}
+* PUT /user/{user_id}/mypackages/{package_id}   -------- { flight_id: 4}
+* DELETE /user/{user_id}/mypackages/{package_id} ------- {id: 2, user_id:1, cost: $500, flight_id: 1, hotel_id:1, restaurant_id: 2, departure_date: 03/04/2017, arrival_date: 04/05/2017}
 
 note: we are creating our data base manually due to the API restriction.
 
