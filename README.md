@@ -114,17 +114,19 @@ we are using github and clubhouse to work together.\
 *  NOTE: User need to enter the destination city and so we decide to use city column to connect flight table, restaurant table, and hotel table.
 
 * Here are the ROUTE:
-1. GET /flight             
-  GET/restaurant \
-  GET/hotel
+1. GET /flight   [{id: 1, airline: United AirLine, flight_number: 2000,     destination_city: France, departure_city: San Francisco, arrival_date: 3/30/2017, cost:1200, user_id: 12}, {},{},..... }          \
+
+  GET/restaurant [{id: 1, name: Soma Eat, city_name: France Cost: 30, user_id: 12}, {}, {},...] \
+
+  GET/hotel [{id:1, name:Hilton, city_name: France, street_name: string, date: string, user_id: 12}, {}, {}]
 
 2.  GET /user             request to sign-up for User Account.\
     GET /user{user_id}    login to user account.
 
-* GET /flight/city         get flight info
-* POST /flight/city        add flight information
-* PUT /flight/city         update flight information
-* DELETE /flight/city      delete flight information
+3. GET /flight/{flight_id}         get flight info
+  POST /flight/city        add flight information
+  PUT /flight/city         update flight information
+  DELETE /flight/city      delete flight information
 
 * GET /hotel/city         get hotel info
 * POST /hotel/city        add hotel info
