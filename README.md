@@ -26,30 +26,29 @@ PackaVacay
 * This project will consist of four tables hotel , fights, restaurant and user table and finally the user_package table. This app is for people who travel to another country and find the closest hotel, restaurant, and restaurant. users can also add the preference of their choices to a user package table so they know what restaurant, hotel and flight. If we are able to get to the end of the project, we will build a price optimization feature, where users can input relevant amount of budge restriction, the app will provide them an list of preference for them. For now, we will focus on building the relationship on the core three main tables first. They are hotel, flights, and restaurant.
 
 1. users send GET request to see the user info \
- users send POST request to add user info
- users send PUT change their person information
- users send DELETE requests to delete the flight information.
+ users send POST request to add user info \
+ users send PUT change their person information \
+ users send DELETE requests to delete the flight information. \
 
-* users send GET view the package information
-* users send POST add info to the package
-* users send PUT update info to the package
-* users send DELETE delete info to the package.
+2. users send GET view the package information \
+ users send POST add info to the package \
+ users send PUT update info to the package \
+ users send DELETE delete info to the package. \
 
-* users sign up for an account for the app
-* users send GET requests to view a flight information
-* users send POST requests to add a flight information if it is not existed
-* users send PUT requests to update previous routines
-* users send DELETE request to delete the flight information.
+3. users send GET requests to view a flight information \
+ users send POST requests to add a flight information if it is not existed \
+ users send PUT requests to update previous routines \
+ users send DELETE request to delete the flight information. \
 
-* users send GET requests to view a hotel information
-* users send POST requests to add a hotel information if it is not existed
-* users send PUT requests to update hotel info
-* users send DELETE request to delete the hotel info
+4. users send GET requests to view a hotel information \
+ users send POST requests to add a hotel information if it is not existed \
+ users send PUT requests to update hotel info \
+ users send DELETE request to delete the hotel info \
 
-* users send GET requests to view a restaurant information
-* users send POST requests to add a restaurant information if it doesn't existed
-* users send PUT requests to update previous the restaurant review
-* users send DELETE requests to delete the flight information.
+5. users send GET requests to view a restaurant information \
+ users send POST requests to add a restaurant information if it doesn't existet\
+ users send PUT requests to update previous the restaurant review\
+ users send DELETE requests to delete the flight information.\
 
 
 ## Who uses it? (from the point of view of end users of your fullstack app)
