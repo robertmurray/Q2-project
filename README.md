@@ -113,7 +113,7 @@ PackaVacay
 we are using github and clubhouse to work together.\
 *  NOTE: User need to enter the destination city and so we decide to use city column to connect flight table, restaurant table, and hotel table.
 
- Here are the ROUTE:
+ Here are the ROUTE: \
 1.
   GET /flight -------- [{id: 1, airline: United AirLine, flight_number: 2000,       destination_city: France, departure_city: San Francisco, arrival_date: 3/30/2017, cost:1200, user_id: 12}, {},{},..... }          
 
