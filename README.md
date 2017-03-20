@@ -142,7 +142,7 @@ GET /restaurant/:restaurant_id ---------- {id: 1, name: Soma_Eat, city_name: San
 
 * POST /user/:user_id/mypackages/:package_id------------- {id: 1, budget: 500, flight_id: 1, restaurant_id: 1, hotel_id: 1,  user_id: 1,  departure_date: 04/05/2017, arrival_date: 4/05/2017},
 * PUT /user/:user_id/mypackages/:package_id ----- {id: 1, budget: 500, flight_id: 1, restaurant_id: 1, hotel_id: 1,  user_id: 1,  departure_date: 04/05/2017, arrival_date: 4/05/2017},
-* DELETE /user/{user_id}/mypackages/{package_id} -------  {id: 1, budget: 500, flight_id: 1, restaurant_id: 1, hotel_id: 1,  user_id: 1,  departure_date: 04/05/2017, arrival_date: 4/05/2017},
+* DELETE /user/:user_id/mypackages/:package_id: -------  {id: 1, budget: 500, flight_id: 1, restaurant_id: 1, hotel_id: 1,  user_id: 1,  departure_date: 04/05/2017, arrival_date: 4/05/2017},
 
 note: we are creating our data base manually due to the API restriction.
 
