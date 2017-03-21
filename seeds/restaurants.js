@@ -10,7 +10,7 @@ exports.seed = function(knex, Promise) {
           name: 'McDonalds',
           street_name: '3828 McDonald Way',
           city_name: 'Miami',
-          cost: 4.78
+          cost: 5.00
         }
       ]);
     });
