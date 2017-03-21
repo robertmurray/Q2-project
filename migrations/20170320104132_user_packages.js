@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('user_package', (table) => {
     table.increments();
-    table.float('budget');
+    table.float('budget').notNullable();
     table.integer('flight_id')
            .references('id')
            .inTable('flights')
