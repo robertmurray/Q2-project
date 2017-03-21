@@ -8,12 +8,14 @@
   "license": "",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.12.3",
+    "express": "^4.15.2",
     "swagger-express-mw": "^0.1.0"
   },
   "devDependencies": {
+    "bcrypt": "^1.0.2",
     "chai": "^3.5.0",
     "chai-date-string": "^0.1.0",
+    "mocha": "^3.2.0",
     "should": "^7.1.0",
     "supertest": "^1.2.0"
   },
