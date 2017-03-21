@@ -1,0 +1,641 @@
+---
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: "Hello World App"
+host: "localhost:10010"
+basePath: "/"
+schemes:
+- "http"
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /flight:
+    get:
+      description: "get an array of flight info"
+      operationId: "flightGET"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/GetFlightResponse"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    x-swagger-router-controller: "flight"
+  /flight/{id}:
+    get:
+      description: "get the relevant flight info"
+      operationId: "flightIdGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the flight that we want to look up"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GetFlightResponse"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    x-swagger-router-controller: "flight"
+  /restaurant:
+    get:
+      description: "get the restaurant info"
+      operationId: "restaurantGET"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/GetRestaurantResponse"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    x-swagger-router-controller: "restaurant"
+  /restaurant/{id}:
+    get:
+      description: "get the relevant flight info"
+      operationId: "restaurantIdGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the flight that we want to look up"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GetRestaurantResponse"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    x-swagger-router-controller: "restaurant"
+  /hotel:
+    get:
+      description: "get an array of hotel info"
+      operationId: "hotelGET"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/GetHotelResponse"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    x-swagger-router-controller: "hotel"
+  /hotel/{id}:
+    get:
+      description: "get the relevant hotel info"
+      operationId: "hotelIdGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the flight that we want to look up"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GetHotelResponse"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    x-swagger-router-controller: "hotel"
+  /users:
+    get:
+      description: "get users info"
+      operationId: "usersGET"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GetUsersResponse"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    post:
+      description: "add user info"
+      operationId: "usersPOST"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "personName"
+        description: "adding a user"
+        required: true
+        schema:
+          $ref: "#/definitions/AddUser"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/PostUsersResponse"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    x-swagger-router-controller: "users"
+  /users/{id}:
+    get:
+      description: "return specific users"
+      operationId: "usersIdGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the person to fetch"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/specificUser"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    put:
+      description: "updating an new user"
+      operationId: "usersIdPUT"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "deleteing a object"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "jsonPatch"
+        required: true
+        schema:
+          $ref: "#/definitions/updateUser"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GetUsersResponse"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    delete:
+      description: "deleting a specific folder"
+      operationId: "usersIdDELETE"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The id that needs to be deleted"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GetUsersResponse"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    x-swagger-router-controller: "users"
+  /users/{id}/packages:
+    get:
+      description: "getting all the packages from the user"
+      operationId: "usersIdPackagesGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "the id that needs to get back"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GetAllPackages"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    post:
+      description: "adding new a package for the user"
+      operationId: "usersIdPackagesPOST"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "adding an package info into the user_package table"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "adding an package to that user"
+        required: true
+        schema:
+          $ref: "#/definitions/AddNewPackage"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GeneralPackage"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    x-swagger-router-controller: "packages"
+  /users/{user_id}/packages/{package_id}:
+    get:
+      description: "getting a specific user package"
+      operationId: "usersUser_idPackagesPackage_idGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "loooking for specific user"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "package_id"
+        in: "path"
+        description: "looking for specific package"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GeneralPackage"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    put:
+      description: "updating a new package"
+      operationId: "usersUser_idPackagesPackage_idPUT"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "loooking for specific user"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "package_id"
+        in: "path"
+        description: "looking for specific package"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "this is what user want to update"
+        required: true
+        schema:
+          $ref: "#/definitions/UpdateNewPackage"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GeneralPackage"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    delete:
+      description: "deleting a package"
+      operationId: "usersUser_idPackagesPackage_idDELETE"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "loooking for specific user"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "package_id"
+        in: "path"
+        description: "looking for specific package"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GeneralPackage"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+    x-swagger-router-controller: "packages"
+  /swagger:
+    x-swagger-pipe: "swagger_raw"
+definitions:
+  GetFlightResponse:
+    type: "object"
+    required:
+    - "airline"
+    - "arrival_date"
+    - "cost"
+    - "departure_city"
+    - "departure_date"
+    - "destination_city"
+    - "id"
+    properties:
+      id:
+        type: "integer"
+      airline:
+        type: "string"
+      cost:
+        type: "integer"
+      destination_city:
+        type: "string"
+      departure_city:
+        type: "string"
+      arrival_date:
+        type: "string"
+      departure_date:
+        type: "string"
+  GetAllPackages:
+    properties:
+      Packages:
+        type: "array"
+        items:
+          $ref: "#/definitions/GetAllPackages_Packages"
+  AddNewPackage:
+    required:
+    - "budget"
+    - "flight_id"
+    - "hotel_id"
+    - "id"
+    - "restaurant_id"
+    - "user_id"
+    properties:
+      id:
+        type: "integer"
+      budget:
+        type: "integer"
+      flight_id:
+        type: "string"
+      restaurant_id:
+        type: "string"
+      hotel_id:
+        type: "string"
+      user_id:
+        type: "string"
+  UpdateNewPackage:
+    required:
+    - "budget"
+    - "flight_id"
+    - "hotel_id"
+    - "id"
+    - "restaurant_id"
+    - "user_id"
+    properties:
+      id:
+        type: "integer"
+      budget:
+        type: "integer"
+      flight_id:
+        type: "integer"
+      restaurant_id:
+        type: "integer"
+      hotel_id:
+        type: "integer"
+      user_id:
+        type: "integer"
+  GeneralPackage:
+    type: "object"
+    required:
+    - "budget"
+    - "flight_id"
+    - "hotel_id"
+    - "id"
+    - "restaurant_id"
+    - "user_id"
+    properties:
+      id:
+        type: "integer"
+        description: "package id"
+      budget:
+        type: "integer"
+        description: "amount of dollar"
+      flight_id:
+        type: "integer"
+        description: "the flight id"
+      restaurant_id:
+        type: "integer"
+        description: "the restaurant id"
+      hotel_id:
+        type: "integer"
+        description: "the hotel id"
+      user_id:
+        type: "integer"
+        description: "the user id"
+  GetRestaurantResponse:
+    required:
+    - "city_name"
+    - "cost"
+    - "id"
+    - "name"
+    - "street_name"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      city_name:
+        type: "string"
+      street_name:
+        type: "string"
+      cost:
+        type: "integer"
+  GetHotelResponse:
+    required:
+    - "city_name"
+    - "cost"
+    - "id"
+    - "name"
+    - "street_name"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      city_name:
+        type: "string"
+      street_name:
+        type: "string"
+      cost:
+        type: "integer"
+  GetUsersResponse:
+    required:
+    - "first_name"
+    - "id"
+    - "last_name"
+    - "username"
+    properties:
+      id:
+        type: "integer"
+      first_name:
+        type: "string"
+      last_name:
+        type: "string"
+      username:
+        type: "string"
+  AddUser:
+    type: "object"
+    required:
+    - "first_name"
+    - "id"
+    - "last_name"
+    - "password"
+    - "username"
+    properties:
+      id:
+        type: "integer"
+      password:
+        type: "string"
+      first_name:
+        type: "string"
+      last_name:
+        type: "string"
+      username:
+        type: "string"
+  updateUser:
+    type: "object"
+    required:
+    - "first_name"
+    - "id"
+    - "last_name"
+    - "username"
+    properties:
+      id:
+        type: "integer"
+      first_name:
+        type: "string"
+      last_name:
+        type: "string"
+      username:
+        type: "string"
+  specificUser:
+    type: "object"
+    required:
+    - "first_name"
+    - "id"
+    - "last_name"
+    - "username"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      first_name:
+        type: "string"
+      last_name:
+        type: "string"
+      username:
+        type: "string"
+  PostUsersResponse:
+    type: "object"
+    required:
+    - "first_name"
+    - "id"
+    - "last_name"
+    - "username"
+    properties:
+      id:
+        type: "integer"
+      first_name:
+        type: "string"
+      last_name:
+        type: "string"
+      username:
+        type: "string"
+  ErrorResponse:
+    required:
+    - "message"
+    properties:
+      message:
+        type: "string"
+  GetAllPackages_Packages:
+    properties:
+      id:
+        type: "integer"
+      budget:
+        type: "string"
+      flight_id:
+        type: "string"
+      restaurant_id:
+        type: "string"
+      hotel_id:
+        type: "string"
+      user_id:
+        type: "string"
