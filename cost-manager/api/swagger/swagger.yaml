@@ -21,13 +21,18 @@ paths:
   /flight:
     x-swagger-router-controller: flight
     get:
-      description: get the flight info
+      description: get an array of flight info
       #define the type of response for Success "200" and Error
+      produces:
+        - application/json
+
       responses:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/GetFlightResponses"
+            type: array
+            items:
+              $ref: "#/definitions/GetFlightResponse"
         default:
           description: Error
           schema:
@@ -37,7 +42,15 @@ paths:
     x-swagger-router-controller: flight
     get:
       description: get the relevant flight info
-      response:
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: id of the flight that we want to look up
+          required: true
+          type: integer
+          format: int64
       responses:
         "200":
           description: Success
@@ -47,10 +60,38 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+            
   /restaurant:
     x-swagger-router-controller: restaurant
     get:
       description: get the restaurant info
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/GetRestaurantResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /restaurant/{id}:
+    x-swagger-router-controller: restaurant
+    get:
+      description: get the relevant flight info
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: id of the flight that we want to look up
+          required: true
+          type: integer
+          format: int64
       responses:
         "200":
           description: Success
@@ -60,10 +101,35 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+      
   /hotel:
     x-swagger-router-controller: hotel
     get:
-      description: get the hotel info
+      description: get an array of hotel info
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+             $ref: "#/definitions/GetHotelResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /hotel/{id}:
+    x-swagger-router-controller: hotel
+    get:
+      description: get the relevant hotel info
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: id of the flight that we want to look up
+          required: true
+          type: integer
+          format: int64
       responses:
         "200":
           description: Success
@@ -73,7 +139,6 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-
   /users:
     x-swagger-router-controller: users
     get:
@@ -210,9 +275,8 @@ paths:
           type: integer
           in: path
           required: true 
-          description: adding an package info
+          description: adding an package info into the user_package table
         - name: body
-          type: integer
           in: body
           description: adding an package to that user
           required: true 
@@ -228,7 +292,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
             
-  /users/{id}/packages/{package_id}:   
+  /users/{user_id}/packages/{package_id}:   
     x-swagger-router-controller: packages
     get:
       # define the parameters
@@ -236,8 +300,14 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: user_id
+          description: loooking for specific user
+          type: integer
+          format: int64
+          in: path
+          required: true
         - name: package_id
-          description: deleteing a object
+          description: looking for specific package
           type: integer
           format: int64
           in: path
@@ -259,14 +329,21 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: package_id
-          description: deleteing a object
+        - name: user_id
+          description: loooking for specific user
           type: integer
           format: int64
           in: path
           required: true
-        - in: "body"
-          name: body
+        - name: package_id
+          description: looking for specific package
+          type: integer
+          format: int64
+          in: path
+          required: true
+        - name: body
+          description: this is what user want to update
+          in: body
           required: true
           schema:
             $ref: "#/definitions/UpdateNewPackage"
@@ -285,17 +362,19 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: package_id
-          description: deleteing a object
+        - name: user_id
+          description: loooking for specific user
           type: integer
           format: int64
           in: path
           required: true
-        - in: "body"
-          name: body
+        - name: package_id
+          description: looking for specific package
+          type: integer
+          format: int64
+          in: path
           required: true
-          schema:
-            $ref: "#/definitions/DeleteNewPackage"
+
       responses:
         "200":
           description: Success
@@ -310,28 +389,6 @@ paths:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
-  GetFlightResponses:
-    propperties:
-      Flights:
-        type: array
-        items:
-          type: object
-          properties:
-            id:
-              type: integer
-            airline:
-              type: string
-            cost:
-              type: integer
-            destination_city:
-              type: string
-            departure_city:
-              type: string
-            arrival_date:
-              type: string
-            departure_date:
-              type: string
-                
   GetFlightResponse:
     required:
       - id
@@ -341,6 +398,7 @@ definitions:
       - departure_city
       - arrival_date
       - departure_date
+    type: object
     properties:
       id:
         type: integer
@@ -379,7 +437,6 @@ definitions:
               type: string
               
   AddNewPackage:
-    type: object
     required:
       - id
       - budget
@@ -402,7 +459,6 @@ definitions:
         type: string
               
   UpdateNewPackage:
-    type: object
     required:
       - id
       - budget
@@ -416,36 +472,13 @@ definitions:
       budget:
         type: integer
       flight_id:
-        type: string
-      restaurant_id:
-        type: string
-      hotel_id:
-        type: string
-      user_id:
-        type: string
-        
-  DeleteNewPackage:
-    type: object
-    required:
-      - id
-      - budget
-      - flight_id
-      - restaurant_id
-      - hotel_id
-      - user_id
-    properties:
-      id: 
         type: integer
-      budget:
-        type: integer
-      flight_id:
-        type: string
       restaurant_id:
-        type: string
+        type: integer
       hotel_id:
-        type: string
+        type: integer
       user_id:
-        type: string
+        type: integer
         
   GeneralPackage:
     type: object
@@ -464,22 +497,18 @@ definitions:
         type: integer
         description: amount of dollar
       flight_id:
-        type: string
-        description: the flight name
+        type: integer
+        description: the flight id
       restaurant_id:
-        type: string
-        description: the restaurant name
+        type: integer
+        description: the restaurant id
       hotel_id:
-        type: string
-        description: the hotel name
+        type: integer
+        description: the hotel id
       user_id:
-        type: string
+        type: integer
         description: the user id
-      tags:
-        type: array
-        items:
-          type: string
-              
+
   GetRestaurantResponse:
     required:
       - id
