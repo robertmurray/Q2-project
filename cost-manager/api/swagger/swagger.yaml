@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "0.0.1"
-  title: Hello World App
+  title: Trip Planner
 # during dev, should point to your local machine
 host: localhost:10010
 # basePath prefixes all resource paths
@@ -548,6 +548,7 @@ definitions:
         type: integer
 
   GetUsersResponse:
+    type: object
     required:
       - id
       - first_name
@@ -599,7 +600,6 @@ definitions:
         type: string
       username:
         type: string 
-  
       
   specificUser:
     type: object
