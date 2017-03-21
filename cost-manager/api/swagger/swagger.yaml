@@ -27,6 +27,21 @@ paths:
         "200":
           description: Success
           schema:
+            $ref: "#/definitions/GetFlightResponses"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+  /flight/{id}:
+    x-swagger-router-controller: flight
+    get:
+      description: get the relevant flight info
+      response:
+      responses:
+        "200":
+          description: Success
+          schema:
             $ref: "#/definitions/GetFlightResponse"
         default:
           description: Error
@@ -290,34 +305,33 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  /hello:
-    # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
-    get:
-      description: Returns 'Hello' to the caller
-      # used as the method name of the controller
-      operationId: hello
-      parameters:
-        - name: name
-          in: query
-          description: The name of the person to whom to say hello
-          required: false
-          type: string
-      responses:
-        "200":
-          description: Success
-          schema:
-            # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
-        # responses may fall through to errors
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
+        
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
+  GetFlightResponses:
+    propperties:
+      Flights:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: integer
+            airline:
+              type: string
+            cost:
+              type: integer
+            destination_city:
+              type: string
+            departure_city:
+              type: string
+            arrival_date:
+              type: string
+            departure_date:
+              type: string
+                
   GetFlightResponse:
     required:
       - id
@@ -342,7 +356,7 @@ definitions:
         type: string
       departure_date:
         type: string
-        
+      
   GetAllPackages:
     properties:
       # The array of packages
@@ -590,13 +604,6 @@ definitions:
       last_name:
         type: string
       username:
-        type: string
-
-  HelloWorldResponse:
-    required:
-      - message
-    properties:
-      message:
         type: string
 
   ErrorResponse:
