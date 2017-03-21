@@ -14,7 +14,7 @@ function PostUniquePackagePerUser(){
 function GetUniquePackageUniqueUser(){
 
 }
-function AddUniquePackageUniqueUser(){
+function UpdateUniquePackageUniqueUser(){
 
 }
 function DeleteUniquePackageUniqueUser(){
@@ -24,6 +24,6 @@ module.exports = {
   GetAllPackagePerUser: GetAllPackagePerUser
   PostUniquePackagePerUser: PostUniquePackagePerUser
   GetUniquePackageUniqueUser: GetUniquePackageUniqueUser
-  AddUniquePackageUniqueUser: AddUniquePackageUniqueUser
+  UpdateUniquePackageUniqueUser: UpdateUniquePackageUniqueUser
   DeleteUniquePackageUniqueUser: DeleteUniquePackageUniqueUser
 }

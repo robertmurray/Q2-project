@@ -25,7 +25,7 @@ paths:
       #define the type of response for Success "200" and Error
       produces:
         - application/json
-
+      operationId: GetAllFlight
       responses:
         "200":
           description: Success
@@ -51,6 +51,7 @@ paths:
           required: true
           type: integer
           format: int64
+      operationId: GetFlight
       responses:
         "200":
           description: Success
@@ -65,6 +66,7 @@ paths:
     x-swagger-router-controller: restaurant
     get:
       description: get the restaurant info
+      operationId: GetAllRestaurant
       produces:
         - application/json
       responses:
@@ -83,6 +85,7 @@ paths:
     x-swagger-router-controller: restaurant
     get:
       description: get the relevant flight info
+      operationId: GetSpecificRestaurant
       produces:
         - application/json
       parameters:
@@ -105,6 +108,7 @@ paths:
   /hotel:
     x-swagger-router-controller: hotel
     get:
+      operationId: GetAllHotel
       description: get an array of hotel info
       responses:
         "200":
@@ -120,6 +124,7 @@ paths:
   /hotel/{id}:
     x-swagger-router-controller: hotel
     get:
+      operationId: GetSpecificHotel
       description: get the relevant hotel info
       produces:
         - application/json
@@ -143,6 +148,7 @@ paths:
     x-swagger-router-controller: users
     get:
       description: get users info
+      operationId: GetAllUsers
       responses:
         "200":
           description: Success
@@ -154,6 +160,7 @@ paths:
             $ref: "#/definitions/ErrorResponse"
     post:
       description: add user info
+      operationId: AddUser
       produces:
         - application/json
       parameters:
@@ -178,6 +185,7 @@ paths:
     x-swagger-router-controller: users
     get:
       description: return specific users
+      operationId: GetSpecificUser
       produces:
         - application/json
       parameters:
@@ -200,6 +208,7 @@ paths:
     put:
       # define the parameters
       description: updating an new user
+      operationId: UpdateUser
       produces:
         - application/json
       parameters:
@@ -225,6 +234,7 @@ paths:
             $ref: "#/definitions/ErrorResponse"
     delete: 
       description: deleting a specific folder 
+      operationId: DeleteUser
       produces:
         - application/json
       parameters:
@@ -246,8 +256,10 @@ paths:
       
   /users/{id}/packages:
     x-swagger-router-controller: packages
+    
     get: 
       description: getting all the packages from the user
+      operationId: GetAllPackagePerUser
       produces:
         - application/json
       parameters:
@@ -268,6 +280,7 @@ paths:
     
     post:
       description: adding new a package for the user
+      operationId: PostUniquePackagePerUser
       produces:
         - application/json
       parameters:
@@ -297,6 +310,7 @@ paths:
     get:
       # define the parameters
       description: getting a specific user package
+      operationId: GetUniquePackageUniqueUser
       produces:
         - application/json
       parameters:
@@ -326,6 +340,7 @@ paths:
     put:
       # define the parameters
       description: updating a new package
+      operationId: UpdateUniquePackageUniqueUser
       produces:
         - application/json
       parameters:
@@ -361,6 +376,7 @@ paths:
       description: deleting a package
       produces:
         - application/json
+      operationId: DeleteUniquePackageUniqueUser
       parameters:
         - name: user_id
           description: loooking for specific user
