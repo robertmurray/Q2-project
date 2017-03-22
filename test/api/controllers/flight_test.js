@@ -30,7 +30,7 @@ suite('flight routes', () => {
       });
   });
 
-  test('POST /flight', (done) => {
+  test('GET /flight', (done) => {
     request(server)
       .post('/flight')
       .set('Accept', 'application/json')
