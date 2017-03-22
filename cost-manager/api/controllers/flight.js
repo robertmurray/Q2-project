@@ -4,11 +4,18 @@ var knex = require(../../knex.js)
 
 
 function GetAllFlight(){
-  knext('flights').
+  knex('flights')
+    .select('*')
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) =>{
+        next();
+      })
 }
 
 function GetFlight(){
-
+  
 }
 
 
