@@ -153,7 +153,9 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/GetUsersResponse"
+            type: array
+            items:
+              $ref: "#/definitions/GetUsersResponse"
         default:
           description: Error
           schema:
