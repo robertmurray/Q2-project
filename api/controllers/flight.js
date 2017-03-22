@@ -1,6 +1,6 @@
 'use strict';
 var util = require('util');
-var knex = require(../../knex.js)
+var knex = require('../../knex.js')
 
 
 function GetAllFlight(){
@@ -29,6 +29,6 @@ function GetFlight(){
 
 
 module.exports = {
-  GetAllFlight: GetAllFlight
+  GetAllFlight: GetAllFlight,
   GetFlight: GetFlight
 };
