@@ -8,6 +8,7 @@
   "license": "",
   "main": "app.js",
   "dependencies": {
+    "@types/swagger-express-mw": "^0.7.0",
     "bcrypt": "^1.0.2",
     "express": "^4.12.3",
     "swagger-express-mw": "^0.1.0"
