@@ -153,7 +153,11 @@ paths:
         "200":
           description: Success
           schema:
+<<<<<<< HEAD
             type:array
+=======
+            type: array
+>>>>>>> 83c2cf15d80569b6a0f6844e6b1f7a58663ac77c
             items:
               $ref: "#/definitions/GetUsersResponse"
         default:
