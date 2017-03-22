@@ -52,9 +52,9 @@ function DeleteUniquePackageUniqueUser(){
 
 }
 module.exports = {
-  GetAllPackagePerUser: GetAllPackagePerUser
-  PostUniquePackagePerUser: PostUniquePackagePerUser
-  GetUniquePackageUniqueUser: GetUniquePackageUniqueUser
-  UpdateUniquePackageUniqueUser: UpdateUniquePackageUniqueUser
+  GetAllPackagePerUser: GetAllPackagePerUser,
+  PostUniquePackagePerUser: PostUniquePackagePerUser,
+  GetUniquePackageUniqueUser: GetUniquePackageUniqueUser,
+  UpdateUniquePackageUniqueUser: UpdateUniquePackageUniqueUser,
   DeleteUniquePackageUniqueUser: DeleteUniquePackageUniqueUser
 }
