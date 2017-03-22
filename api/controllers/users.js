@@ -3,9 +3,15 @@ var util = require('util');
 var knex = require('../../knex.js');
 
 
-function GetAllUsers(){
-
-}
+function GetAllUsers(req, res){
+  return knex('users')
+    .then((users) => {
+      res.send(users)
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
 
 function AddUser(){
 
