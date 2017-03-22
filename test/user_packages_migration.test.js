@@ -20,39 +20,18 @@ suite('user packages migrations', () => {
 })
 
   test('user_packages migrations', (done) => {
-    knex('user_package').columnInfo()
+    knex('user_packages').columnInfo()
       .then((actual) => {
         const expected = {
           id: {
             type: 'integer',
             maxLength: null,
             nullable: false,
-            defaultValue: 'nextval(\'user_package_id_seq\'::regclass)'
+            defaultValue: 'nextval(\'user_packages_id_seq\'::regclass)'
           },
 
           budget: {
             type: 'real',
-            maxLength: null,
-            nullable: false,
-            defaultValue: null
-          },
-
-          flight_id: {
-            type: 'integer',
-            maxLength: null,
-            nullable: false,
-            defaultValue: null
-          },
-
-          restaurant_id: {
-            type: 'integer',
-            maxLength: null,
-            nullable: false,
-            defaultValue: null
-          },
-
-          hotel_id: {
-            type: 'integer',
             maxLength: null,
             nullable: false,
             defaultValue: null
