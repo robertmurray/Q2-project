@@ -1,12 +1,12 @@
 swagger: "2.0"
 info:
   version: "0.0.1"
-  title: Hello World App
+  title: Trip Planner
 # during dev, should point to your local machine
 host: localhost:10010
-# basePath prefixes all resource paths 
+# basePath prefixes all resource paths
 basePath: /
-# 
+#
 schemes:
   # tip: remove http to make production-grade
   - http
@@ -21,8 +21,36 @@ paths:
   /flight:
     x-swagger-router-controller: flight
     get:
-      description: get the flight info
+      description: get an array of flight info
       #define the type of response for Success "200" and Error
+      produces:
+        - application/json
+
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/GetFlightResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+  /flight/{id}:
+    x-swagger-router-controller: flight
+    get:
+      description: get the relevant flight info
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: id of the flight that we want to look up
+          required: true
+          type: integer
+          format: int64
       responses:
         "200":
           description: Success
@@ -32,30 +60,331 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  /hello:
-    # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
+            
+  /restaurant:
+    x-swagger-router-controller: restaurant
     get:
-      description: Returns 'Hello' to the caller
-      # used as the method name of the controller
-      operationId: hello
-      parameters:
-        - name: name
-          in: query
-          description: The name of the person to whom to say hello
-          required: false
-          type: string
+      description: get the restaurant info
+      produces:
+        - application/json
       responses:
         "200":
           description: Success
           schema:
-            # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
-        # responses may fall through to errors
+            type: array
+            items:
+              $ref: "#/definitions/GetRestaurantResponse"
         default:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
+  /restaurant/{id}:
+    x-swagger-router-controller: restaurant
+    get:
+      description: get the relevant flight info
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: id of the flight that we want to look up
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetRestaurantResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      
+  /hotel:
+    x-swagger-router-controller: hotel
+    get:
+      description: get an array of hotel info
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+             $ref: "#/definitions/GetHotelResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /hotel/{id}:
+    x-swagger-router-controller: hotel
+    get:
+      description: get the relevant hotel info
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: id of the flight that we want to look up
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetHotelResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /users:
+    x-swagger-router-controller: users
+    get:
+      description: get users info
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetUsersResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      description: add user info
+      produces:
+        - application/json
+      parameters:
+        - name: personName
+          description: adding a user
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/AddUser"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/PostUsersResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    
+   
+  /users/{id}:
+    x-swagger-router-controller: users
+    get:
+      description: return specific users
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of the person to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/specificUser"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+    put:
+      # define the parameters
+      description: updating an new user
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          description: deleteing a object
+          type: integer
+          format: int64
+          in: path
+          required: true
+        - in: "body"
+          name: "jsonPatch"
+          required: true
+          schema:
+            $ref: "#/definitions/updateUser"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetUsersResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete: 
+      description: deleting a specific folder 
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: The id that needs to be deleted
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetUsersResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      
+  /users/{id}/packages:
+    x-swagger-router-controller: packages
+    get: 
+      description: getting all the packages from the user
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: the id that needs to get back
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetAllPackages"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    
+    post:
+      description: adding new a package for the user
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          type: integer
+          in: path
+          required: true 
+          description: adding an package info into the user_package table
+        - name: body
+          in: body
+          description: adding an package to that user
+          required: true 
+          schema: 
+            $ref: "#/definitions/AddNewPackage"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralPackage"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+  /users/{user_id}/packages/{package_id}:   
+    x-swagger-router-controller: packages
+    get:
+      # define the parameters
+      description: getting a specific user package
+      produces:
+        - application/json
+      parameters:
+        - name: user_id
+          description: loooking for specific user
+          type: integer
+          format: int64
+          in: path
+          required: true
+        - name: package_id
+          description: looking for specific package
+          type: integer
+          format: int64
+          in: path
+          required: true
+          
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralPackage"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+    put:
+      # define the parameters
+      description: updating a new package
+      produces:
+        - application/json
+      parameters:
+        - name: user_id
+          description: loooking for specific user
+          type: integer
+          format: int64
+          in: path
+          required: true
+        - name: package_id
+          description: looking for specific package
+          type: integer
+          format: int64
+          in: path
+          required: true
+        - name: body
+          description: this is what user want to update
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateNewPackage"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralPackage"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      # define the parameters
+      description: deleting a package
+      produces:
+        - application/json
+      parameters:
+        - name: user_id
+          description: loooking for specific user
+          type: integer
+          format: int64
+          in: path
+          required: true
+        - name: package_id
+          description: looking for specific package
+          type: integer
+          format: int64
+          in: path
+          required: true
+
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralPackage"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
@@ -64,34 +393,248 @@ definitions:
     required:
       - id
       - airline
-      - flight_number
+      - cost
       - destination_city
       - departure_city
       - arrival_date
-      - cost
+      - departure_date
+    type: object
     properties:
-      id: 
+      id:
         type: integer
       airline:
         type: string
-      flight_number:
-        type: string
+      cost:
+        type: integer
       destination_city:
         type: string
       departure_city:
         type: string
       arrival_date:
         type: string
-      cost: 
+      departure_date:
+        type: string
+      
+  GetAllPackages:
+    properties:
+      # The array of packages
+      Packages:
+        type: array
+        items:
+          type: object
+          properties:
+            id: 
+              type: integer
+            budget:
+              type: string
+            flight_id: 
+              type: string
+            restaurant_id:
+              type: string
+            hotel_id:
+              type: string
+            user_id:
+              type: string
+              
+  AddNewPackage:
+    required:
+      - id
+      - budget
+      - flight_id
+      - restaurant_id
+      - hotel_id
+      - user_id
+    properties:
+      id: 
+        type: integer
+      budget:
+        type: integer
+      flight_id:
+        type: string
+      restaurant_id:
+        type: string
+      hotel_id:
+        type: string
+      user_id:
+        type: string
+              
+  UpdateNewPackage:
+    required:
+      - id
+      - budget
+      - flight_id
+      - restaurant_id
+      - hotel_id
+      - user_id
+    properties:
+      id: 
+        type: integer
+      budget:
+        type: integer
+      flight_id:
+        type: integer
+      restaurant_id:
+        type: integer
+      hotel_id:
+        type: integer
+      user_id:
         type: integer
         
-  HelloWorldResponse:
+  GeneralPackage:
+    type: object
     required:
-      - message
+      - id
+      - budget
+      - flight_id
+      - restaurant_id
+      - hotel_id
+      - user_id
     properties:
-      message:
+      id: 
+        type: integer
+        description: package id
+      budget:
+        type: integer
+        description: amount of dollar
+      flight_id:
+        type: integer
+        description: the flight id
+      restaurant_id:
+        type: integer
+        description: the restaurant id
+      hotel_id:
+        type: integer
+        description: the hotel id
+      user_id:
+        type: integer
+        description: the user id
+
+  GetRestaurantResponse:
+    required:
+      - id
+      - name
+      - city_name
+      - street_name
+      - cost
+    properties:
+      id:
+        type: integer
+      name:
         type: string
+      city_name:
+        type: string
+      street_name:
+        type: string
+      cost:
+        type: integer
+
+  GetHotelResponse:
+    required:
+      - id
+      - name
+      - city_name
+      - street_name
+      - cost
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      city_name:
+        type: string
+      street_name:
+        type: string
+      cost:
+        type: integer
+
+  GetUsersResponse:
+    type: object
+    required:
+      - id
+      - first_name
+      - last_name
+      - username
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      username:
+        type: string
+
+  AddUser:
+    type: object
+    required:
+      - id
+      - password
+      - first_name
+      - last_name
+      - username
+    properties:
+      id: 
+        type: integer
+      password:
+        type: string
+      first_name: 
+        type: string
+      last_name:
+        type: string
+      username:
+        type: string 
         
+  updateUser:
+    type: object
+    required:
+      - id
+      - first_name
+      - last_name
+      - username
+    properties:
+      id: 
+        type: integer
+      first_name: 
+        type: string
+      last_name:
+        type: string
+      username:
+        type: string 
+      
+  specificUser:
+    type: object
+    required:
+      - id
+      - first_name
+      - last_name
+      - username
+    properties:
+      id:
+        type: integer
+        format: int64
+      first_name:
+        type: string
+      last_name:
+        type: string
+      username:
+        type: string
+  PostUsersResponse:
+    type: object
+    required:
+      - id
+      - first_name
+      - last_name
+      - username
+    properties:
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+      username:
+        type: string
+
   ErrorResponse:
     required:
       - message
