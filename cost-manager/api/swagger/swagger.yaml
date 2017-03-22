@@ -42,6 +42,7 @@ paths:
     x-swagger-router-controller: flight
     get:
       description: get the relevant flight info
+      operationId: GetFlight
       produces:
         - application/json
       parameters:
@@ -51,7 +52,6 @@ paths:
           required: true
           type: integer
           format: int64
-      operationId: GetFlight
       responses:
         "200":
           description: Success
