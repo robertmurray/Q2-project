@@ -15,7 +15,15 @@ function GetAllFlight(){
 }
 
 function GetFlight(){
-  
+  knex('flights')
+    .where('id', req.swagger.params.id.value)
+    .returning('*')
+      .then((result) => {
+        res.send(result)
+      })
+      .catch((err) =>{
+        next();
+      });
 }
 
 
