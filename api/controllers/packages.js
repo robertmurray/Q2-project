@@ -1,6 +1,6 @@
 'use strict';
 var util = require('util');
-var knex = require(../../knex.js)
+var knex = require('../../knex.js')
 
 
 function GetAllPackagePerUser(){
@@ -52,9 +52,9 @@ function DeleteUniquePackageUniqueUser(){
 
 }
 module.exports = {
-  GetAllPackagePerUser: GetAllPackagePerUser
-  PostUniquePackagePerUser: PostUniquePackagePerUser
-  GetUniquePackageUniqueUser: GetUniquePackageUniqueUser
-  UpdateUniquePackageUniqueUser: UpdateUniquePackageUniqueUser
+  GetAllPackagePerUser: GetAllPackagePerUser,
+  PostUniquePackagePerUser: PostUniquePackagePerUser,
+  GetUniquePackageUniqueUser: GetUniquePackageUniqueUser,
+  UpdateUniquePackageUniqueUser: UpdateUniquePackageUniqueUser,
   DeleteUniquePackageUniqueUser: DeleteUniquePackageUniqueUser
 }
