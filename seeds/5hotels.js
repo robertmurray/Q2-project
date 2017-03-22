@@ -14,5 +14,8 @@ exports.seed = function(knex, Promise) {
           date: '2017/06/24'
         }
       ]);
-    });
+    })
+    .then(() => {
+           return knex.raw("SELECT setval('hotels_id_seq', (SELECT MAX(id) FROM hotels))");
+       });
 };

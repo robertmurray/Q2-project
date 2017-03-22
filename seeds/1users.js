@@ -13,5 +13,8 @@ exports.seed = function(knex, Promise) {
           last_name: 'Zheng'
         }
       ]);
-    });
+    })
+    .then(() => {
+           return knex.raw("SELECT setval('users_id_seq', (SELECT MAX(id) FROM users))");
+       });
 };

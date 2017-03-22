@@ -11,7 +11,8 @@ exports.seed = function(knex, Promise) {
           package_id: 1
         }
       ]);
-    })then(() => {
-            return knex.raw("SELECT setval('flight_package_id_seq', (SELECT MAX(id) FROM flight_package))");
-        })
+    })
+    .then(() => {
+           return knex.raw("SELECT setval('flight_package_id_seq', (SELECT MAX(id) FROM flight_package))");
+       });
 };
