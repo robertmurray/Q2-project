@@ -4,9 +4,10 @@ var knex = require('../../knex.js')
 
 
 function GetAllFlight(){
-  knex('flights')
+  return knex('flights')
     .select('*')
       .then((result) => {
+        console.log('what is result', result);
         res.send(result);
       })
       .catch((err) =>{
@@ -15,7 +16,7 @@ function GetAllFlight(){
 }
 
 function GetFlight(){
-  knex('flights')
+  return knex('flights')
     .where('id', req.swagger.params.id.value)
     .select('*')
       .first()

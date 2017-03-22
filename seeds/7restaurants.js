@@ -11,6 +11,16 @@ exports.seed = function(knex, Promise) {
           street_name: '3828 McDonald Way',
           city_name: 'Miami',
           cost: 5.00
+        },
+        {
+
+        },
+        {
+
+        }
+        ,
+        {
+          
         }
       ]);
     })

@@ -7,7 +7,7 @@ const { suite, test } = require('mocha');
 const bcrypt = require('bcrypt');
 const request = require('supertest');
 const knex = require('../../knex');
-const server = require('../server');
+const server = require('../../app');
 
 suite('flight routes', () => {
   before((done) => {

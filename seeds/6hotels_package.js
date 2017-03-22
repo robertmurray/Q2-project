@@ -1,10 +1,10 @@
 'use strict';
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('hotels_package').del()
+  return knex('hotel_package').del()
     .then(function () {
       // Inserts seed entries
-      return knex('hotels_package').insert([
+      return knex('hotel_package').insert([
         {
           id: 1,
           hotel_id: 1,
@@ -13,6 +13,6 @@ exports.seed = function(knex, Promise) {
       ]);
     })
     .then(() => {
-           return knex.raw("SELECT setval('hotels_package_id_seq', (SELECT MAX(id) FROM hotels_package))");
+           return knex.raw("SELECT setval('hotel_package_id_seq', (SELECT MAX(id) FROM hotel_package))");
        });
 };

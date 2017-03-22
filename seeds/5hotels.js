@@ -12,7 +12,7 @@ exports.seed = function(knex, Promise) {
           street_name: '38 Ivanka Ave',
           cost: 300.00,
           date: '2017/06/24'
-        }
+        },
       ]);
     })
     .then(() => {
