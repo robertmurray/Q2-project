@@ -17,7 +17,8 @@ function GetAllFlight(){
 function GetFlight(){
   knex('flights')
     .where('id', req.swagger.params.id.value)
-    .returning('*')
+    .select('*')
+      .first()
       .then((result) => {
         res.send(result)
       })
