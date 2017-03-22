@@ -7,9 +7,14 @@ exports.seed = function(knex, Promise) {
       return knex('restaurants').insert([
         {
           id: 1,
-          restaurant_id: 1,
-          package_id: 1
+          name: 'McDonalds',
+          street_name: '3828 McDonald Way',
+          city_name: 'Miami',
+          cost: 5.00
         }
       ]);
-    });
+    })
+    .then(() => {
+           return knex.raw("SELECT setval('restaurants_id_seq', (SELECT MAX(id) FROM restaurants))");
+       });
 };

@@ -15,5 +15,8 @@ exports.seed = function(knex, Promise) {
           cost: 300.00
         }
       ]);
-    });
+    })
+    .then(() => {
+           return knex.raw("SELECT setval('flights_id_seq', (SELECT MAX(id) FROM flights))");
+       });
 };
