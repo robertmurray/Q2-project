@@ -68,6 +68,7 @@ suite('users routes', () => {
       ],done)
   });
 
+
   test('POST /users', (done) => {
     request(server)
       .post('/users')
@@ -87,6 +88,7 @@ suite('users routes', () => {
         last_name:  'Lam',
       },done)
   });
+
   test('GET /users/:id', (done) => {
     request(server)
       .get('/users/2')
@@ -99,4 +101,5 @@ suite('users routes', () => {
         last_name:  'Shoman'
       },done)
   })
+
 });
