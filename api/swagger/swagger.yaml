@@ -603,14 +603,11 @@ definitions:
   AddUser:
     type: object
     required:
-      - id
       - password
       - first_name
       - last_name
       - username
     properties:
-      id:
-        type: integer
       password:
         type: string
       first_name:

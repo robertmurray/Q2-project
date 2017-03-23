@@ -41,9 +41,18 @@ function AddUser(req, res) {
             })
         }
 
-    function GetSpecificUser() {
-
-    }
+    function GetSpecificUser(req, res) {
+      const userId = req.swagger.params.id.value;
+      return knex('users')
+        .where('id', userId)
+        .then((user) => {
+          delete user[0].hashed_password
+          res.send(user[0]);
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
 
     function UpdateUser() {
 

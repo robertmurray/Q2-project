@@ -2,9 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
-const assert = require('chai').assert;
 const { suite, test } = require('mocha');
-const bcrypt = require('bcrypt');
 const request = require('supertest');
 const knex = require('../../../knex');
 const server = require('../../../app');
@@ -76,7 +74,32 @@ suite('users routes', () => {
       .post('/users')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
+      .send({
+        username: 'KillaKev',
+        password: 'NiceLA',
+        first_name: 'Kevin',
+        last_name:  'Lam',
+      })
       .expect('Content-Type', /json/)
-      .expect(200,,done)
+      .expect(200,{
+        id: 6,
+        username: 'KillaKev',
+        first_name: 'Kevin',
+        last_name:  'Lam',
+      },done)
   });
+
+  test('GET /users/:id', (done) => {
+    request(server)
+      .get('/users/2')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
+      .expect(200,{
+        id: 2,
+        username: 'MoSho',
+        first_name: 'Muhammad',
+        last_name:  'Shoman'
+      },done)
+  })
+
 });
