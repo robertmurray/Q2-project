@@ -8,7 +8,6 @@ function GetAllFlight(req, res){
     .select('*')
       .then((result) => {
           if(result){
-            console.log('what is result', result);
             res.set('Content-Type', 'application/json')
             res.send(result);
           }
@@ -23,20 +22,20 @@ function GetAllFlight(req, res){
       })
 }
 
-// function GetFlight(req, res){
-//   return knex('flights')
-//     .where('id', req.swagger.params.id.value)
-//     .select('*')
-//       .first()
-//       .then((result) => {
-//         res.send(result)
-//       })
-//       .catch((err) =>{
-//         next();
-//       });
-// }
+function GetFlight(req, res){
+  return knex('flights')
+      .where('id', req.swagger.params.id.value)
+      .returning('*')
+        .then((result) => {
+          res.set('Content-Type', 'application/json')
+          res.send(result[0])
+        })
+        .catch((err) =>{
+          next();
+        });
+}
 
 module.exports = {
   GetAllFlight: GetAllFlight,
-  // GetFlight: GetFlight
+  GetFlight: GetFlight
 };

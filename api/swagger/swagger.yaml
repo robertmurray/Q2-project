@@ -434,6 +434,7 @@ definitions:
         type: string
 
 
+
   GetAllPackages:
     properties:
       # The array of packages
@@ -444,16 +445,27 @@ definitions:
           properties:
             id:
               type: integer
-            budget:
-              type: string
-            flight_id:
-              type: string
-            restaurant_id:
-              type: string
-            hotel_id:
-              type: string
             user_id:
+              type: integer
+            airline:
               type: string
+            flight_Id: 
+              type: integer
+            flight_cost:
+              type: integer
+            restaurant:
+              type: string
+            restaurant_Id:
+              type: integer
+            restaurant_cost:
+              type: integer
+            hotel:
+              type: string
+            hotel_Id:
+              type: integer
+            hotel_cost:
+              type: integer
+            
 
   AddNewPackage:
     required:

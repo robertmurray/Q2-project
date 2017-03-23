@@ -24,8 +24,11 @@ function AddUser(req, res) {
                 }
                 bcrypt.hash(password, 12)
                     .then((hashed_password) => {
+
                       const user = { first_name, last_name, username, hashed_password };
-                        delete user.password;
+
+                        delete users.password;
+
                         return knex("users")
                             .insert(user, '*')
                     }).then((users) => {
