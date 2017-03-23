@@ -4,7 +4,7 @@ var knex = require('../../knex.js')
 
 
 function GetAllPackagePerUser(req, res, err) {
-    console.log('did i get here?');
+    // console.log('did i get here?');
     return knex.from('users')
         .innerJoin('user_packages', 'users.id', 'user_packages.id')
         .join('flight_package', 'flight_package.package_id', 'user_packages.id')
@@ -16,6 +16,7 @@ function GetAllPackagePerUser(req, res, err) {
         .select('user_packages.id as package_id', 'users.id as user_id', 'airline', 'flights.id as flight_id', 'flights.cost as flight_cost', 'restaurants.name as restaurant_name', 'restaurants.id as restaurants_name',
             'restaurants.cost as restaurants_cost', 'hotels.name as hotels_name', 'hotels.id as hotels_id', 'hotels.cost as hotels_cost')
         .where('user_packages.id', req.swagger.params.id.value)
+        .returning('*')
         .then((result) => {
             if (result) {
                 console.log('what is result', result);
@@ -73,7 +74,7 @@ function DeleteUniquePackageUniqueUser() {
 module.exports = {
     GetAllPackagePerUser: GetAllPackagePerUser,
     // PostUniquePackagePerUser: PostUniquePackagePerUser,
-    // GetUniquePackageUniqueUser: GetUniquePackageUniqueUser,
-    // UpdateUniquePackageUniqueUser: UpdateUniquePackageUniqueUser,
-    // DeleteUniquePackageUniqueUser: DeleteUniquePackageUniqueUser
+    GetUniquePackageUniqueUser: GetUniquePackageUniqueUser,
+    UpdateUniquePackageUniqueUser: UpdateUniquePackageUniqueUser,
+    DeleteUniquePackageUniqueUser: DeleteUniquePackageUniqueUser
 }

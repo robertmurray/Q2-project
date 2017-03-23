@@ -274,7 +274,9 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/GetAllPackages"
+            type: array
+            items:
+              $ref: "#/definitions/GetAllPackages"
         default:
           description: Error
           schema:
@@ -436,35 +438,43 @@ definitions:
 
 
   GetAllPackages:
-    properties:
       # The array of packages
-      Packages:
-        type: array
-        items:
-          type: object
-          properties:
-            id:
-              type: integer
-            user_id:
-              type: integer
-            airline:
-              type: string
-            flight_Id: 
-              type: integer
-            flight_cost:
-              type: integer
-            restaurant:
-              type: string
-            restaurant_Id:
-              type: integer
-            restaurant_cost:
-              type: integer
-            hotel:
-              type: string
-            hotel_Id:
-              type: integer
-            hotel_cost:
-              type: integer
+      type: object
+      required:
+        - id
+        - user_id
+        - airline
+        - flight_Id
+        - flight_cost
+        - restaurant
+        - restaurant_Id
+        - restaurant_cost
+        - hotel
+        - hotel_Id
+        - hotel_cost
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        airline:
+          type: string
+        flight_Id: 
+          type: integer
+        flight_cost:
+          type: integer
+        restaurant:
+          type: string
+        restaurant_Id:
+          type: integer
+        restaurant_cost:
+          type: integer
+        hotel:
+          type: string
+        hotel_Id:
+          type: integer
+        hotel_cost:
+          type: integer
             
 
   AddNewPackage:
