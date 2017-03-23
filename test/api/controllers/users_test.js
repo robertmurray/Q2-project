@@ -2,9 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
-const assert = require('chai').assert;
 const { suite, test } = require('mocha');
-const bcrypt = require('bcrypt');
 const request = require('supertest');
 const knex = require('../../../knex');
 const server = require('../../../app');
@@ -70,23 +68,35 @@ suite('users routes', () => {
       ],done)
   });
 
-<<<<<<< HEAD
-  // test('POST /users', (done) => {
-  //   request(server)
-  //     .post('/users')
-  //     .set('Accept', 'application/json')
-  //     .set('Content-Type', 'application/json')
-  //     .expect('Content-Type', /json/)
-  //     .expect(200,,done)
-  // });
-=======
   test('POST /users', (done) => {
     request(server)
       .post('/users')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
+      .send({
+        username: 'KillaKev',
+        password: 'NiceLA',
+        first_name: 'Kevin',
+        last_name:  'Lam',
+      })
       .expect('Content-Type', /json/)
-      .expect(200,,done)
+      .expect(200,{
+        id: 6,
+        username: 'KillaKev',
+        first_name: 'Kevin',
+        last_name:  'Lam',
+      },done)
   });
->>>>>>> 2967c4a7fa58e9ccdff814ad3e6fd370bdb021f8
+  test('GET /users/:id', (done) => {
+    request(server)
+      .get('/users/2')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
+      .expect(200,{
+        id: 2,
+        username: 'MoSho',
+        first_name: 'Muhammad',
+        last_name:  'Shoman'
+      },done)
+  })
 });
