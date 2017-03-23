@@ -50,15 +50,15 @@ suite('flights migrations', () => {
           },
 
           departure_date: {
-            type: 'date',
-            maxLength: null,
+            type: 'character varying',
+            maxLength: 255,
             nullable: false,
             defaultValue: null
           },
 
           arrival_date: {
-            type: 'date',
-            maxLength: null,
+            type: 'character varying',
+            maxLength: 255,
             nullable: false,
             defaultValue: null
           },

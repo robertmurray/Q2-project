@@ -50,8 +50,8 @@ suite('hotels migrations', () => {
           },
 
           date: {
-            type: 'date',
-            maxLength: null,
+            type: 'character varying',
+            maxLength: 255,
             nullable: false,
             defaultValue: null
           },
