@@ -70,16 +70,7 @@ suite('users routes', () => {
       ],done)
   });
 
-<<<<<<< HEAD
-  // test('POST /users', (done) => {
-  //   request(server)
-  //     .post('/users')
-  //     .set('Accept', 'application/json')
-  //     .set('Content-Type', 'application/json')
-  //     .expect('Content-Type', /json/)
-  //     .expect(200,,done)
-  // });
-=======
+
   test('POST /users', (done) => {
     request(server)
       .post('/users')
@@ -88,5 +79,4 @@ suite('users routes', () => {
       .expect('Content-Type', /json/)
       .expect(200,,done)
   });
->>>>>>> 2967c4a7fa58e9ccdff814ad3e6fd370bdb021f8
 });

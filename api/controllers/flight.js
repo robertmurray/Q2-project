@@ -23,21 +23,20 @@ function GetAllFlight(req, res){
       })
 }
 
-function GetFlight(req, res){
-  return knex('flights')
-    .where('id', req.swagger.params.id.value)
-    .select('*')
-      .first()
-      .then((result) => {
-        res.send(result)
-      })
-      .catch((err) =>{
-        next();
-      });
-}
-
+// function GetFlight(req, res){
+//   return knex('flights')
+//     .where('id', req.swagger.params.id.value)
+//     .select('*')
+//       .first()
+//       .then((result) => {
+//         res.send(result)
+//       })
+//       .catch((err) =>{
+//         next();
+//       });
+// }
 
 module.exports = {
   GetAllFlight: GetAllFlight,
-  GetFlight: GetFlight
+  // GetFlight: GetFlight
 };

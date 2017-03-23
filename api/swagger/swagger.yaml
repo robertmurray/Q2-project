@@ -430,15 +430,9 @@ definitions:
         type: string
       arrival_date:
         type: string
-<<<<<<< HEAD
-        
       departure_date:
         type: string
-        
-=======
-      departure_date:
-        type: string
->>>>>>> 05d2145b011e7c17bb0635c29fffda318b92ea58
+
 
   GetAllPackages:
     properties:
@@ -520,6 +514,7 @@ definitions:
         type: integer
       hotel_cost:
         type: integer
+      
 
   GeneralPackage:
     type: object
