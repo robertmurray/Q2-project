@@ -54,7 +54,7 @@ function AddUser(req, res) {
         });
     };
 
-    function UpdateUser() {
+    function UpdateUser(req, res) {
 
     }
 
