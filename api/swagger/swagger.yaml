@@ -215,7 +215,7 @@ paths:
         - application/json
       parameters:
         - name: id
-          description: deleteing a object
+          description: update user by this id
           type: integer
           format: int64
           in: path
@@ -433,7 +433,6 @@ definitions:
       departure_date:
         type: string
 
-
   GetAllPackages:
     properties:
       # The array of packages
@@ -514,7 +513,6 @@ definitions:
         type: integer
       hotel_cost:
         type: integer
-      
 
   GeneralPackage:
     type: object
@@ -624,6 +622,7 @@ definitions:
       - first_name
       - last_name
       - username
+      - password
     properties:
       id:
         type: integer
@@ -632,6 +631,8 @@ definitions:
       last_name:
         type: string
       username:
+        type: string
+      password:
         type: string
 
   specificUser:

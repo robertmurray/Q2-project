@@ -68,7 +68,6 @@ suite('users routes', () => {
       ],done)
   });
 
-
   test('POST /users', (done) => {
     request(server)
       .post('/users')
@@ -88,7 +87,6 @@ suite('users routes', () => {
         last_name:  'Lam',
       },done)
   });
-
   test('GET /users/:id', (done) => {
     request(server)
       .get('/users/2')
@@ -100,6 +98,38 @@ suite('users routes', () => {
         first_name: 'Muhammad',
         last_name:  'Shoman'
       },done)
-  })
+  });
+  test('PUT /users/:id', (done) => {
+    request(server)
+      .put('/users/4')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
+      .send({
+        id: 4,
+        username: 'LittleBoi',
+        password:  'noBoi', //YeahBoi
+        first_name: 'Little',
+        last_name:  'Boy'
+      })
+      .expect('Content-Type', /json/)
+      .expect(200, {
+        id: 4,
+        username: 'LittleBoi',
+        first_name: 'Little',
+        last_name:  'Boy'
+      },done)
 
+  });
+  test('DELETE /users/:id', (done) => {
+    request(server)
+      .del('/users/4')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
+      .expect(200,{
+        id: 4,
+        username: 'BigBoi',
+        first_name: 'Big',
+        last_name:  'Boy'
+      },done)
+  });
 });
