@@ -7,7 +7,7 @@ const request = require('supertest');
 const knex = require('../../../knex');
 const server = require('../../../app');
 
-suite('restaurant route', () => {
+suite('restaurant routes', () => {
   before((done) => {
     knex.migrate.latest()
       .then(() => {
@@ -73,7 +73,7 @@ suite('restaurant route', () => {
   });
   test('GET restaurant/:id', (done) => {
     request(server)
-      .get('restaurant/3')
+      .get('/restaurant/3')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .expect('Content-Type', /json/)
