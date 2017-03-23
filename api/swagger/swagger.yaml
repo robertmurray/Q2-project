@@ -333,7 +333,7 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/GeneralPackage"
+            $ref: "#/definitions/PackageDetail"
         default:
           description: Error
           schema:
@@ -363,12 +363,12 @@ paths:
           in: body
           required: true
           schema:
-            $ref: "#/definitions/UpdateNewPackage"
+            $ref: "#/definitions/PackageDetail"
       responses:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/GeneralPackage"
+            $ref: "#/definitions/PackageDetail"
         default:
           description: Error
           schema:
@@ -397,7 +397,7 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/GeneralPackage"
+            $ref: "#/definitions/PackageDetail"
         default:
           description: Error
           schema:
@@ -430,8 +430,10 @@ definitions:
         type: string
       arrival_date:
         type: string
+        format: date
       departure_date:
         type: string
+        format: date
       
   GetAllPackages:
     properties:
@@ -476,26 +478,42 @@ definitions:
       user_id:
         type: string
               
-  UpdateNewPackage:
+  PackageDetail:
+    type: object
     required:
-      - id
-      - budget
-      - flight_id
-      - restaurant_id
-      - hotel_id
       - user_id
+      - package_id
+      - airline
+      - flight_Id
+      - flight_cost
+      - restaurant
+      - restaurant_Id
+      - restaurant_cost
+      - hotel
+      - hotel_Id
+      - hotel_cost
     properties:
-      id: 
-        type: integer
-      budget:
-        type: integer
-      flight_id:
-        type: integer
-      restaurant_id:
-        type: integer
-      hotel_id:
-        type: integer
       user_id:
+        type: integer
+      package_id:
+        type: integer
+      airline:
+        type: string
+      flight_Id:
+        type: integer
+      flight_cost:
+        type: integer
+      restaurant:
+        type: string
+      restaurant_Id:
+        type: integer
+      restaurant_cost:
+        type: integer
+      hotel:
+        type: string
+      hotel_Id:
+        type: integer
+      hotel_cost:
         type: integer
         
   GeneralPackage:
@@ -639,7 +657,7 @@ definitions:
   PostUsersResponse:
     type: object
     required:
-      - id
+      - id 
       - first_name
       - last_name
       - username

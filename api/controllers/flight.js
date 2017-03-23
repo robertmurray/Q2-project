@@ -7,14 +7,16 @@ function GetAllFlight(req, res){
   return knex('flights')
     .select('*')
       .then((result) => {
-        if(result){
-          res.send(result);
-        }else{
-          res.status(400);
-          res.send('this is not a valid input')
-          throw new Error("this end point doesn't exist")
-        }
-        console.log('what is result', result);
+          // console.log('what is result', JSON.parse(JSON.stringify(result)));
+          res.set('Content-Type', 'application/json')
+          res.send(JSON.parse(JSON.stringify(result)));
+          // res.send(result);
+
+        // else{
+        //   res.status(400);
+        //   res.send('this is not a valid input')
+        //   throw new Error("this end point doesn't exist")
+        // }
       })
       .catch((err) =>{
         console.error(err);
@@ -22,16 +24,16 @@ function GetAllFlight(req, res){
 }
 
 function GetFlight(req, res){
-  return knex('flights')
-    .where('id', req.swagger.params.id.value)
-    .select('*')
-      .first()
-      .then((result) => {
-        res.send(result)
-      })
-      .catch((err) =>{
-        next();
-      });
+  // return knex('flights')
+  //   .where('id', req.swagger.params.id.value)
+  //   .select('*')
+  //     .first()
+  //     .then((result) => {
+  //       res.send(result)
+  //     })
+  //     .catch((err) =>{
+  //       next();
+  //     });
 }
 
 

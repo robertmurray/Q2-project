@@ -1,15 +1,14 @@
 'use strict';
 
 process.env.NODE_ENV = 'test';
-
-const assert = require('chai').assert;
-const { suite, test } = require('mocha');
-const bcrypt = require('bcrypt');
+// const { suite, test } = require('mocha');
+const {describe,it} = require('mocha');
 const request = require('supertest');
-const knex = require('../../knex');
-const server = require('../../app');
+const knex = require('../../../knex.js');
+const app = require('../../../app.js');
+const expect = require('chai').expect;
 
-suite('flight routes', () => {
+describe('flight routes', () => {
   before((done) => {
     knex.migrate.latest()
       .then(() => {
@@ -29,13 +28,42 @@ suite('flight routes', () => {
         done(err);
       });
   });
-
-  test('GET /flight', (done) => {
-    request(server)
-      .post('/flight')
+  // afterEach((done) => {
+  //   knex.migrate.rollback()
+  //     .then(() => {
+  //       done();
+  //     })
+  //     .catch((err) => {
+  //       done(err);
+  //     });
+  // });
+// describe('GET /flight with an array of flights', () =>{
+//   it('response with an array of flights', (done)=>{
+//     request(server)
+//       .get('/flight')
+//       .set('Accept', 'application/json')
+//       .expect('Content-Type', /json/)
+//       .expect(200)
+//       .end((err, res) => {
+//         if(err){
+//           return done(err);
+//         }
+//         done();
+//       })
+//   });
+// })
+console.log('hi');
+  it('GET /flight with an array of flights', (done) => {
+    request(app)
+      .get('/flight')
       .set('Accept', 'application/json')
-      .set('Content-Type', 'application/json')
-      .expect(200, [{
+      .expect('Content-Type','application/json')
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        console.log('what is fucking res.body?', res);
+        expect(
+        [{
         id: 1,
         airline: 'Delta',
         departure_city: 'San Francisco',
@@ -43,33 +71,7 @@ suite('flight routes', () => {
         departure_date: '2017/06/24',
         arrival_date: '2017/06/24',
         cost: 300.00
-      }])
-      .expect('Content-Type', /json/)
-      .end((httpErr, _res) => {
-        if (httpErr) {
-          return done(httpErr);
-        }
-
-        knex('flights')
-          .where('id', 1)
-          .first()
-          .then((user) => {
-            assert.deepEqual(user, {
-              id: 1,
-              airline: 'Delta',
-              departure_city: 'San Francisco',
-              destination_city: 'Miami',
-              departure_date: '2017/06/24',
-              arrival_date: '2017/06/24',
-              cost: 300.00
-            });
-
-            // eslint-disable-next-line no-sync
-            done();
-          })
-          .catch((dbErr) => {
-            done(dbErr);
-          });
-      });
+      }] );
+    },done);
   });
 });
