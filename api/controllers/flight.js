@@ -7,38 +7,36 @@ function GetAllFlight(req, res){
   return knex('flights')
     .select('*')
       .then((result) => {
-
-          // console.log('what is result', JSON.parse(JSON.stringify(result)));
-          res.set('Content-Type', 'application/json')
-          res.send(JSON.parse(JSON.stringify(result)));
-          // res.send(result);
-
-        // else{
-        //   res.status(400);
-        //   res.send('this is not a valid input')
-        //   throw new Error("this end point doesn't exist")
-        // }
+          if(result){
+            console.log('what is result', result);
+            res.set('Content-Type', 'application/json')
+            res.send(result);
+          }
+        else{
+          res.status(400);
+          res.send('this is not a valid input')
+          throw new Error("this end point doesn't exist");
+        }
       })
       .catch((err) =>{
         console.error(err);
       })
 }
 
-function GetFlight(req, res){
-  // return knex('flights')
-  //   .where('id', req.swagger.params.id.value)
-  //   .select('*')
-  //     .first()
-  //     .then((result) => {
-  //       res.send(result)
-  //     })
-  //     .catch((err) =>{
-  //       next();
-  //     });
-}
-
+// function GetFlight(req, res){
+//   return knex('flights')
+//     .where('id', req.swagger.params.id.value)
+//     .select('*')
+//       .first()
+//       .then((result) => {
+//         res.send(result)
+//       })
+//       .catch((err) =>{
+//         next();
+//       });
+// }
 
 module.exports = {
   GetAllFlight: GetAllFlight,
-  GetFlight: GetFlight
+  // GetFlight: GetFlight
 };

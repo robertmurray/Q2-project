@@ -433,6 +433,7 @@ definitions:
       departure_date:
         type: string
 
+
   GetAllPackages:
     properties:
       # The array of packages
@@ -513,6 +514,7 @@ definitions:
         type: integer
       hotel_cost:
         type: integer
+      
 
   GeneralPackage:
     type: object
