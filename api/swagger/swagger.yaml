@@ -430,10 +430,8 @@ definitions:
         type: string
       arrival_date:
         type: string
-        format: date
       departure_date:
         type: string
-        format: date
 
   GetAllPackages:
     properties:
@@ -477,7 +475,7 @@ definitions:
         type: string
       user_id:
         type: string
-      
+
   PackageDetail:
     type: object
     required:
@@ -657,7 +655,7 @@ definitions:
   PostUsersResponse:
     type: object
     required:
-      - id 
+      - id
       - first_name
       - last_name
       - username
