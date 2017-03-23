@@ -28,6 +28,7 @@ describe('flight routes', () => {
         done(err);
       });
   });
+
   // afterEach((done) => {
   //   knex.migrate.rollback()
   //     .then(() => {

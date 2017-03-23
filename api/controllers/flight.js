@@ -7,6 +7,7 @@ function GetAllFlight(req, res){
   return knex('flights')
     .select('*')
       .then((result) => {
+
           // console.log('what is result', JSON.parse(JSON.stringify(result)));
           res.set('Content-Type', 'application/json')
           res.send(JSON.parse(JSON.stringify(result)));
