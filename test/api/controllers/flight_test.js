@@ -72,7 +72,7 @@ console.log('hi');
         departure_date: '2017/06/24',
         arrival_date: '2017/06/24',
         cost: 300.00
-      }] );
-    },done);
+      }] , done);
+
   });
 });

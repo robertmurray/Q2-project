@@ -430,10 +430,10 @@ definitions:
         type: string
       arrival_date:
         type: string
-        format: date
+        
       departure_date:
         type: string
-        format: date
+        
 
   GetAllPackages:
     properties:
