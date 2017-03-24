@@ -216,7 +216,7 @@ paths:
         - application/json
       parameters:
         - name: id
-          description: deleteing a object
+          description: update user by this id
           type: integer
           format: int64
           in: path
@@ -394,7 +394,32 @@ paths:
     #       format: int64
     #       in: path
     #       required: true
-
+ 
+  /login:
+    x-swagger-router-controller: userLogin
+    post:
+    #define paramaters
+      description: User login
+      operationId: userLogin
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: body
+          description: Allow user to login
+          required: true
+          schema:
+            $ref: "#/definitions/userLog"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/specificUser"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+     
     #   responses:
     #     "200":
     #       description: Success
@@ -404,6 +429,7 @@ paths:
     #       description: Error
     #       schema:
     #         $ref: "#/definitions/ErrorResponse"
+
 
   /swagger:
     x-swagger-pipe: swagger_raw
@@ -434,8 +460,6 @@ definitions:
         type: string
       departure_date:
         type: string
-
-
 
   GetAllPackages:
       # The array of packages
@@ -535,7 +559,6 @@ definitions:
         type: integer
       hotels_cost:
         type: integer
-      
 
   # GeneralPackage:
   #   type: object
@@ -645,6 +668,7 @@ definitions:
       - first_name
       - last_name
       - username
+      - password
     properties:
       id:
         type: integer
@@ -653,6 +677,8 @@ definitions:
       last_name:
         type: string
       username:
+        type: string
+      password:
         type: string
 
   specificUser:
@@ -672,6 +698,18 @@ definitions:
         type: string
       username:
         type: string
+        
+  userLog:
+    type: object
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+      
   PostUsersResponse:
     type: object
     required:
