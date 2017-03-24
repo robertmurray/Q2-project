@@ -2,6 +2,7 @@
 var util = require('util');
 var knex = require('../../knex.js');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 function GetAllUsers(req, res) {
     return knex('users')
@@ -24,27 +25,32 @@ function AddUser(req, res) {
     return knex('users')
         .where("username", username)
         .then((users) => {
-                if (users[0]) {
-                    res.status(400).send("username already exists");
-                }
-                bcrypt.hash(password, 12)
-                    .then((hashed_password) => {
+            if (users[0]) {
+                res.status(400).send("username already exists");
+            }
+            bcrypt.hash(password, 12)
+                .then((hashed_password) => {
 
-                      const user = { first_name, last_name, username, hashed_password };
+                    const user = {
+                        first_name,
+                        last_name,
+                        username,
+                        hashed_password
+                    };
 
-                        delete users.password;
+                    delete users.password;
 
-                        return knex("users")
-                            .insert(user, '*')
-                    }).then((users) => {
-                        delete users[0].hashed_password;
-                        res.send(users[0]);
-                    })
-                    .catch((err) => {
-                        if (err) {
-                            throw err;
-                        }
-                    });
+                    return knex("users")
+                        .insert(user, '*')
+                }).then((users) => {
+                    delete users[0].hashed_password;
+                    res.send(users[0]);
+                })
+                .catch((err) => {
+                    if (err) {
+                        throw err;
+                    }
+                });
 
         })
 }
@@ -66,19 +72,19 @@ function UpdateUser(req, res) {
     const updatedUser = req.body;
     return bcrypt.hash(updatedUser.password, 12)
         .then((hashed_password) => {
-          updatedUser.hashed_password = hashed_password;
-          delete updatedUser.password;
+            updatedUser.hashed_password = hashed_password;
+            delete updatedUser.password;
             return knex('users')
                 .where('id', updatedUser.id)
                 .update(updatedUser)
                 .then((updated) => {
                     delete updatedUser.hashed_password;
                     if (updated) {
-                      res.send(updatedUser);
+                        res.send(updatedUser);
                     }
                 })
                 .catch((err) => {
-                  throw err;
+                    throw err;
                 })
         })
         .catch((err) => {
@@ -87,23 +93,23 @@ function UpdateUser(req, res) {
 };
 
 function DeleteUser(req, res) {
-  const deleteUserId = req.swagger.params.id.value;
-  let deletedUser;
-  return knex('users')
-    .where('id', deleteUserId)
-    .then((user) => {
-      deletedUser = user[0];
-      delete deletedUser.hashed_password;
-      res.json(deletedUser);
-    })
-    .then(() => {
-      return knex('users')
+    const deleteUserId = req.swagger.params.id.value;
+    let deletedUser;
+    return knex('users')
         .where('id', deleteUserId)
-        .del()
-    })
-    .catch((err) => {
-      throw err;
-    })
+        .then((user) => {
+            deletedUser = user[0];
+            delete deletedUser.hashed_password;
+            res.json(deletedUser);
+        })
+        .then(() => {
+            return knex('users')
+                .where('id', deleteUserId)
+                .del()
+        })
+        .catch((err) => {
+            throw err;
+        })
 };
 
 

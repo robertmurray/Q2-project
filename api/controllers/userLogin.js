@@ -13,7 +13,7 @@ dotenv.load()
 
 function userLogin(req, res) {
     let authUser;
-    knex('users')
+    return knex('users')
         .where('username', req.body.username)
         .first()
         .then((user) => {
