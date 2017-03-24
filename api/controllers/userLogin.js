@@ -5,10 +5,11 @@ const knex = require('../../knex');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt-as-promised');
+const bcrypt = require('bcrypt');
 const express = require('express');
 const router = express.Router();
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
+
 dotenv.load()
 
 function userLogin(req, res) {
@@ -45,6 +46,4 @@ function userLogin(req, res) {
         });
 };
 
-module.exports = {
-    userLogin
-}
+module.exports = {userLogin}
