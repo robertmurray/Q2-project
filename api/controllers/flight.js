@@ -3,7 +3,6 @@ var util = require('util');
 var knex = require('../../knex.js')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const header = require('module-header')
 
 function GetAllFlight(req, res){
   jwt.verify(req.headers['token'], process.env.JWT_KEY, (err, payload) => {
