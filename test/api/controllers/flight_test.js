@@ -38,31 +38,6 @@ describe('flight routes', () => {
       });
   });
 
-  // afterEach((done) => {
-  //   knex.migrate.rollback()
-  //     .then(() => {
-  //       done();
-  //     })
-  //     .catch((err) => {
-  //       done(err);
-  //     });
-  // });
-// describe('GET /flight with an array of flights', () =>{
-//   it('response with an array of flights', (done)=>{
-//     request(server)
-//       .get('/flight')
-//       .set('Accept', 'application/json')
-//       .expect('Content-Type', /json/)
-//       .expect(200)
-//       .end((err, res) => {
-//         if(err){
-//           return done(err);
-//         }
-//         done();
-//       })
-//   });
-// })
-console.log('hi');
   it('GET /flight with an array of flights', (done) => {
     request(app)
       .get('/flight')
@@ -71,7 +46,6 @@ console.log('hi');
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-        console.log('what is fucking res.body?', res);
         expect(res.body).to.deep.equal(
         [{
           id: 1,
@@ -120,5 +94,38 @@ console.log('hi');
         }]);
         done();
       });
+  });
+
+  it('GET /flight with a specific of flights', (done) => {
+    request(app)
+      .get('/flight/3')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /application\/json/)
+
+      .end((err, res) => {
+        if(err) return done(err);
+        done();
+    });
+  });
+  it('GET /flight with a specific of flights', (done) => {
+    request(app)
+      .get('/flight/2')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /application\/json/)
+      .expect(200)
+      .end((err, res) => {
+        if(err) return done(err);
+        expect(res.body).to.deep.equal(
+          {
+            id: 2,
+            airline:  'SouthWest',
+            departure_city: 'Los Angeles',
+            destination_city:'New York City',
+            departure_date: '2017/05/25',
+            arrival_date: '2017/05/25',
+            cost: 450.00
+          })
+        done();
+    });
   });
 });

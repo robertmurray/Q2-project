@@ -9,7 +9,7 @@ function GetAllHotel(req, res){
       res.send(hotels);
     })
     .catch((err) => {
-      throw err;
+      next();
     });
 };
 
@@ -22,7 +22,7 @@ function GetSpecificHotel(req, res){
       res.send(hotel);
     })
     .catch((err) => {
-      throw err;
+      next();
     })
 };
 
