@@ -24,29 +24,27 @@ function AddUser(req, res) {
     return knex('users')
         .where("username", username)
         .then((users) => {
-            if (users[0]) {
-                res.status(400).send("username already exists");
-            }
-            bcrypt.hash(password, 12)
-                .then((hashed_password) => {
-                    const user = {
-                        first_name,
-                        last_name,
-                        username,
-                        hashed_password
-                    };
-                    delete user.password;
-                    return knex("users")
-                        .insert(user, '*')
-                }).then((users) => {
-                    delete users[0].hashed_password;
-                    res.send(users[0]);
-                })
-                .catch((err) => {
-                    if (err) {
-                        throw err;
-                    }
-                });
+                if (users[0]) {
+                    res.status(400).send("username already exists");
+                }
+                bcrypt.hash(password, 12)
+                    .then((hashed_password) => {
+
+                      const user = { first_name, last_name, username, hashed_password };
+
+                        delete users.password;
+
+                        return knex("users")
+                            .insert(user, '*')
+                    }).then((users) => {
+                        delete users[0].hashed_password;
+                        res.send(users[0]);
+                    })
+                    .catch((err) => {
+                        if (err) {
+                            throw err;
+                        }
+                    });
 
         })
 }
