@@ -75,6 +75,6 @@ describe('package routes', () => {
               restaurants_cost: 50,
               hotels_name: 'Holiday Inn',
               hotels_id: 2,
-              hotels_cost: 150 ], done)
+              hotels_cost: 150}, done)
     })
 })
