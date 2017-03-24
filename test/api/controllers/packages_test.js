@@ -10,7 +10,7 @@ const app = require('../../../app.js');
 const expect = require('chai').expect;
 
 describe('package routes', () => {
-    before((done) => {
+    beforeEach((done) => {
         knex.migrate.rollback()
             .then(() => {
                 done();
@@ -19,7 +19,7 @@ describe('package routes', () => {
                 done(err);
             })
     })
-    before((done) => {
+    beforeEach((done) => {
         knex.migrate.latest()
             .then(() => {
                 done();
@@ -45,17 +45,36 @@ describe('package routes', () => {
             .expect('Content-Type', /application\/json/)
             .expect(200)
             .expect([{
-                package_id: 3,
-                user_id: 3,
-                airline: 'American Airlines',
-                flight_id: 3,
-                flight_cost: 500,
-                restaurant_name: 'Wingstop',
-                restaurants_name: 3,
-                restaurants_cost: 20,
-                hotels_name: 'Gucci Mane Hotel',
-                hotels_id: 3,
-                hotels_cost: 150
-            }], done)
+              package_id: 2,
+              user_id: 2,
+              airline: 'SouthWest',
+              flight_id: 2,
+              flight_cost: 450,
+              restaurant_name: 'Red Lobster',
+              restaurant_id: 2,
+              restaurants_cost: 50,
+              hotels_name: 'Holiday Inn',
+              hotels_id: 2,
+              hotels_cost: 150 }], done)
+    })
+
+    it('GET /users/{id}/package{id}', (done) => {
+        request(app)
+            .get('/users/3/packages/3')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /application\/json/)
+            .expect(200)
+            .expect({
+              package_id: 2,
+              user_id: 2,
+              airline: 'SouthWest',
+              flight_id: 2,
+              flight_cost: 450,
+              restaurant_name: 'Red Lobster',
+              restaurant_id: 2,
+              restaurants_cost: 50,
+              hotels_name: 'Holiday Inn',
+              hotels_id: 2,
+              hotels_cost: 150 ], done)
     })
 })

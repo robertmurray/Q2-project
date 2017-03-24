@@ -160,6 +160,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
     post:
       description: add user info
       operationId: AddUser
@@ -258,7 +259,6 @@ paths:
 
   /users/{id}/packages:
     x-swagger-router-controller: packages
-
     get:
       description: getting all the packages from the user
       operationId: GetAllPackagePerUser
@@ -439,42 +439,41 @@ definitions:
 
   GetAllPackages:
       # The array of packages
-      type: object
-      required:
-        - id
-        - user_id
-        - airline
-        - flight_Id
-        - flight_cost
-        - restaurant
-        - restaurant_Id
-        - restaurant_cost
-        - hotel
-        - hotel_Id
-        - hotel_cost
-      properties:
-        id:
-          type: integer
-        user_id:
-          type: integer
-        airline:
-          type: string
-        flight_Id: 
-          type: integer
-        flight_cost:
-          type: integer
-        restaurant:
-          type: string
-        restaurant_Id:
-          type: integer
-        restaurant_cost:
-          type: integer
-        hotel:
-          type: string
-        hotel_Id:
-          type: integer
-        hotel_cost:
-          type: integer
+    required:
+      - package_id
+      - user_id
+      - airline
+      - flight_id
+      - flight_cost
+      - restaurant_name
+      - restaurant_id
+      - restaurants_cost
+      - hotels_name
+      - hotels_id
+      - hotels_cost
+    properties:
+      package_id:
+        type: integer
+      user_id:
+        type: integer
+      airline:
+        type: string
+      flight_id: 
+        type: integer
+      flight_cost:
+        type: integer
+      restaurant_name:
+        type: string
+      restaurant_id:
+        type: integer
+      restaurants_cost:
+        type: integer
+      hotels_name:
+        type: string
+      hotels_id:
+        type: integer
+      hotels_cost:
+        type: integer
             
 
   AddNewPackage:
@@ -505,14 +504,14 @@ definitions:
       - user_id
       - package_id
       - airline
-      - flight_Id
+      - flight_id
       - flight_cost
-      - restaurant
-      - restaurant_Id
-      - restaurant_cost
-      - hotel
-      - hotel_Id
-      - hotel_cost
+      - restaurant_name
+      - restaurant_id
+      - restaurants_cost
+      - hotels_name
+      - hotels_id
+      - hotels_cost
     properties:
       user_id:
         type: integer
@@ -520,21 +519,21 @@ definitions:
         type: integer
       airline:
         type: string
-      flight_Id:
+      flight_id:
         type: integer
       flight_cost:
         type: integer
-      restaurant:
+      restaurant_name:
         type: string
-      restaurant_Id:
+      restaurant_id:
         type: integer
-      restaurant_cost:
+      restaurants_cost:
         type: integer
-      hotel:
+      hotels_name:
         type: string
-      hotel_Id:
+      hotels_id:
         type: integer
-      hotel_cost:
+      hotels_cost:
         type: integer
       
 
