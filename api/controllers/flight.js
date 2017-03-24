@@ -4,17 +4,22 @@ var knex = require('../../knex.js')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const header = require('module-header')
+const request = require('request');
 
 function GetAllFlight(req, res){
-  jwt.verify(req.headers['token'], process.env.JWT_KEY, (err, payload) => {
-    if (err) {
-        res.send(false);
-    } else {
-        tokenId = payload.userId;
-        console.log(tokenId);
-        res.send(true);
-    }
-  });
+  // jwt.verify(req.headers['token'], process.env.JWT_KEY, (err, payload) => {
+  //   if (err) {
+  //       res.send(false);
+  //   } else {
+  //       tokenId = payload.userId;
+  //       console.log(tokenId);
+  //       res.send(true);
+  //   }
+  // });
+//   request('http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/FR/eur/en-US/uk/us/anytime/anytime?apikey=ga559494378282545481811892645063' , function(error, response, body){
+//     console.log('what is response', body);
+//   }
+// );
 
   return knex('flights')
     .select('*')
