@@ -40,7 +40,7 @@ describe('package routes', () => {
 
     it('GET /users/{id}/package', (done) => {
         request(app)
-            .get('/users/3/packages')
+            .get('/users/2/packages')
             .set('Accept', 'application/json')
             .expect('Content-Type', /application\/json/)
             .expect(200)
@@ -60,7 +60,7 @@ describe('package routes', () => {
 
     it('GET /users/{id}/package{id}', (done) => {
         request(app)
-            .get('/users/3/packages/3')
+            .get('/users/2/packages/2')
             .set('Accept', 'application/json')
             .expect('Content-Type', /application\/json/)
             .expect(200)
@@ -75,6 +75,6 @@ describe('package routes', () => {
               restaurants_cost: 50,
               hotels_name: 'Holiday Inn',
               hotels_id: 2,
-              hotels_cost: 150 ], done)
+              hotels_cost: 150 }, done)
     })
 })
