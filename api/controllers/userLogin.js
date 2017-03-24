@@ -11,7 +11,11 @@ const router = express.Router();
 
 
 function userLogin(req, res) {
-  
+  const {username, password} = req.body;
+  return knex('users')
+    .where((
+      username: username,
+    ))
 }
 
 module.exports = {userLogin}
