@@ -402,6 +402,32 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  
+  /login:
+    x-swagger-router-controller: userLogin
+    post:
+    #define paramaters
+      description: User login
+      operationId: userLogin
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: body
+          description: Allow user to login
+          required: true
+          schema:
+            $ref: "#/definitions/userLog"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/specificUser"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      
 
   /swagger:
     x-swagger-pipe: swagger_raw
@@ -652,6 +678,18 @@ definitions:
         type: string
       username:
         type: string
+        
+  userLog:
+    type: object
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+      
   PostUsersResponse:
     type: object
     required:
