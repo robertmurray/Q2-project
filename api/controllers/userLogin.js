@@ -8,36 +8,43 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const express = require('express');
 const router = express.Router();
-const env = process.
+const dotenv = require('dotenv');
 
-
+dotenv.load()
 function userLogin(req, res) {
-
-    console.log(' i have cookie', req.cookies);
-    jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
-      if (err) {
-        res.set('Content-type', 'text/plain');
-        res.status(401).send('Unauthorized');
-      } else {
-        // console.log('this is the payload',payload);
-        // { userId: 1, iat: 1489382285, exp: 1489987085 }
-        tokenUserid = payload.userId;
-        next();
-      }
+  let authUser;
+  return knex('users')
+    .where('username' , req.body.username)
+        .first()
+        .then((user) => {
+          console.log(user);
+          if (!user) {
+            res.status(400).send('Invalid username');
+          }
+          authUser = user;
+          let hashed_pass = authUser.hashed_password;
+          return bcrypt.compare(req.body.password, hashed_pass)
+            .then((auth) => {
+              if(!auth){
+                res.status(400).send('Invalid password');
+              }
+              console.log(auth);
+              const token = jwt.sign({
+                  id: authUser.id,
+              },
+              process.env.JWT_KEY);
+              console.log(token, typeof token);
+              return res.status(200).json({token})
+            })
+            .catch((err) => {
+              throw err
+            })
+        })
+    .catch((err) => {
+      throw err
     });
-
-}
+};
 
 module.exports = {userLogin}
 
 
-router.get('/token', (req, res) => {
-    jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
-        if (err) {
-            res.send(false);
-        } else {
-            tokenId = payload.userId;
-            res.send(true);
-        }
-    });
-});

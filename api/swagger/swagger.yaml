@@ -414,7 +414,7 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/specificUser"
+            $ref: "#/definitions/loggedIn"
         default:
           description: Error
           schema:
@@ -708,6 +708,13 @@ definitions:
       username:
         type: string
       password:
+        type: string
+ 
+  loggedIn:
+    required:
+      - token
+    properties:
+      token:
         type: string
       
   PostUsersResponse:
