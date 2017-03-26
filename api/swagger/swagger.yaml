@@ -26,6 +26,12 @@ paths:
       produces:
         - application/json
       operationId: GetAllFlight
+      # parameters:
+      #   - in: query
+      #     name: departure_city
+      #     description: departure_city
+      #     required: true
+      #     type: string
       responses:
         "200":
           description: Success

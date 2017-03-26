@@ -1,9 +1,8 @@
 'use strict';
 exports.seed = function(knex, Promise) {
-  // Deletes ALL existing entries
   return knex('hotels').del()
     .then(function () {
-      // Inserts seed entries
+      return Promise.all([
       return knex('hotels').insert([
         {
           id: 1,
@@ -46,6 +45,7 @@ exports.seed = function(knex, Promise) {
             date: '2017/06/10'
           }
       ]);
+    ])
     })
     .then(() => {
            return knex.raw("SELECT setval('hotels_id_seq', (SELECT MAX(id) FROM hotels))");

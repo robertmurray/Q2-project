@@ -17,68 +17,68 @@ function GetAllFlight(req, res) {
     //       res.send(true);
     //   }
     // });
+  fetch('http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=ga559494378282545481811892645063')
+  .then((response) => {
+      return response.json();
+  })
+  .then((realRes) => {
+      let finalArray = [];
+      realRes["Quotes"].forEach((ele) => {
+          let result = {};
+          let Airline = realRes["Carriers"].filter((flight) => {
+              return flight.CarrierId === ele.OutboundLeg["CarrierIds"][0]
+          })[0];
 
-    fetch('http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/FR/eur/en-US/uk/us/anytime/anytime?apikey=ga559494378282545481811892645063')
-        .then((response) => {
-            return response.json();
-        })
-        .then((realRes) => {
-            // result.id =
-            // result.airline =
-            // result.destination_city =
-            // result.departure_city =
-            // result.arrival_date =
-            // result.departure_date =
-            // console.log('what is body',res);
-            // console.log('what is real res', realRes);
-            let finalArray = [];
-            // let result = {};
-            realRes["Quotes"].forEach((ele) => {
-                // console.log('what is ele', ele);
-                let result = {};
-                let Airline = realRes["Carriers"].filter((flight) => {
-                    return flight.CarrierId === ele.OutboundLeg["CarrierIds"][0]
-                })[0]['Name'];
-                // console.log('what is Airline', Airline);
-                // result.airline = Airline;
-                // console.log('what is ass', Airline);
-                result.airline = Airline;
-                result.departure_date = ele.OutboundLeg.DepartureDate;
-                result.arrival_date = ele.InboundLeg.DepartureDate;
-                finalArray.push(result);
-                // console.log('each time result', result);
-                // console.log('each time final Array', finalArray);
+          if (Airline === undefined) {
+              Airline = 'ID_Missing'
+          }
 
-            })
-            console.log('WHAT IS RESULT', finalArray);
-        })
+          Airline = Airline['Name'];
+          let departureLocation = realRes['Places'].filter((place) => {
+              return place.PlaceId === ele['OutboundLeg']['OriginId']
+          })[0];
 
+          let departureCity = 'airport: ' + departureLocation.SkyscannerCode + ', City: ' + departureLocation.Name;
 
+          let destinationLocation = realRes['Places'].filter((place) => {
+              return place.PlaceId === ele['OutboundLeg']['DestinationId']
+          })[0];
 
-        // id:
-        // airline:
-        // cost:
-        // destination_city:
-        // departure_city:
-        // arrival_date:
-        // departure_date:
+          let destinationCity = 'airport: ' +
+              destinationLocation.SkyscannerCode + ', City: ' +
+              destinationLocation.Name;
+          let QuoteId = ele.QuoteId;
+          result.id = parseInt(QuoteId);
+          result.airline = Airline;
+          result.cost = parseInt(ele.MinPrice);
+          result.destination_city = destinationCity;
+          result.departure_city = departureCity;
+          result.departure_date = ele.OutboundLeg.DepartureDate;
+          result.arrival_date = ele.InboundLeg.DepartureDate;
 
-        // return knex('flights')
-        //   .select('*')
-        //     .then((result) => {
-        //         if(result){
-        //           res.set('Content-Type', 'application/json')
-        //           res.send(result);
-        //         }
-        //       else{
-        //         res.status(400);
-        //         res.send('this is not a valid input')
-        //         throw new Error("this end point doesn't exist");
-        //       }
-        //     })
-        .catch((err) => {
-            console.error(err);
-        })
+          finalArray.push(result);
+          console.log('what is finalArray', finalArray);
+          // res.set('Content-Type', 'application/json')
+          res.status(200).send(finalArray);
+      })
+      // console.log('WHAT IS RESULT', finalArray);
+  })
+  // return knex('flights')
+  //   .select('*')
+  //     .then((result) => {
+  //         if(result){
+  //           res.set('Content-Type', 'application/json')
+  //           res.send(result);
+  //         }
+  //       else{
+  //         res.status(400);
+  //         res.send('this is not a valid input')
+  //         throw new Error("this end point doesn't exist");
+  //       }
+  //     })
+  .catch((err) => {
+      console.error(err);
+  })
 }
 
 function GetFlight(req, res) {
