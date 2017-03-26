@@ -21,17 +21,22 @@ paths:
   /flight:
     x-swagger-router-controller: flight
     get:
-      description: get an array of all added flights
+      description: get an array of all added flights, enter the city where you depart from, it will give u a lot of infomation where u can land
       #define the type of response for Success "200" and Error
       produces:
         - application/json
       operationId: GetAllFlight
-      # parameters:
-      #   - in: query
-      #     name: departure_city
-      #     description: departure_city
-      #     required: true
-      #     type: string
+      parameters:
+        - in: query
+          name: departure_city
+          description: departure_city
+          required: true
+          type: string
+        # - in: query
+        #   name: arrival_city
+        #   description: arrival_city
+        #   required: true
+        #   type: string
       responses:
         "200":
           description: Success

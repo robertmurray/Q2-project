@@ -23,6 +23,7 @@ function GetAllFlight(req, res) {
   })
   .then((realRes) => {
       let finalArray = [];
+
       realRes["Quotes"].forEach((ele) => {
           let result = {};
           let Airline = realRes["Carriers"].filter((flight) => {
@@ -57,10 +58,14 @@ function GetAllFlight(req, res) {
           result.arrival_date = ele.InboundLeg.DepartureDate;
 
           finalArray.push(result);
-          console.log('what is finalArray', finalArray);
           // res.set('Content-Type', 'application/json')
-          res.status(200).send(finalArray);
+        });
+        let newArray = finalArray.filter((ele)=>{
+          return (ele.departure_city.includes(req.query.departure_city) )
+          // res.status(200).send(finalArray);
       })
+      console.log('what is finalArray', newArray );
+      res.send(newArray);
       // console.log('WHAT IS RESULT', finalArray);
   })
   // return knex('flights')
