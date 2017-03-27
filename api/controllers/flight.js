@@ -62,11 +62,10 @@ function GetAllFlight(req, res) {
         });
         let newArray = finalArray.filter((ele)=>{
           return (ele.departure_city.includes(req.query.departure_city) )
-          // res.status(200).send(finalArray);
       })
-      console.log('what is finalArray', newArray );
+      // console.log('what is finalArray', newArray );
+      res.status(200);
       res.send(newArray);
-      // console.log('WHAT IS RESULT', finalArray);
   })
   // return knex('flights')
   //   .select('*')

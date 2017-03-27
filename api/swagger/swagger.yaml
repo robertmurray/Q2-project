@@ -80,6 +80,19 @@ paths:
       operationId: GetAllRestaurant
       produces:
         - application/json
+      parameters:
+        - in: query
+          name: departure_city
+          description: the city that the restaurant locates at
+          required: true
+          type: string
+          
+        - in: query
+          name: rating
+          description: the ratinng that the users want it to be
+          required: true
+          type: string
+          
       responses:
         "200":
           description: Success
@@ -506,7 +519,7 @@ definitions:
       - cost
     properties:
       id:
-        type: integer
+        type: string
       name:
         type: string
       city_name:
@@ -514,7 +527,7 @@ definitions:
       street_name:
         type: string
       cost:
-        type: integer
+        type: string
 
   GetHotelResponse:
     required:
