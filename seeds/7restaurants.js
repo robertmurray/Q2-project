@@ -1,9 +1,8 @@
 'use strict';
 exports.seed = function(knex, Promise) {
-  // Deletes ALL existing entries
   return knex('restaurants').del()
     .then(function () {
-      // Inserts seed entries
+      return Promise.all([
       return knex('restaurants').insert([
         {
           id: 1,
@@ -41,6 +40,7 @@ exports.seed = function(knex, Promise) {
           cost: 20.00
         }
       ]);
+    ])
     })
     .then(() => {
            return knex.raw("SELECT setval('restaurants_id_seq', (SELECT MAX(id) FROM restaurants))");

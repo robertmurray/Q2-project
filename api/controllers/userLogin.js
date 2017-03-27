@@ -1,16 +1,15 @@
 'use strict';
-
-const util = require('util');
+var util = require('util');
 const knex = require('../../knex');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-as-promised');
 const express = require('express');
-const router = express.Router();
+// const router = express.Router();
 const dotenv = require('dotenv');
-
 dotenv.load()
+// app.use(cookieParse());
 
 function userLogin(req, res) {
     let authUser;
@@ -29,21 +28,30 @@ function userLogin(req, res) {
                     if (!auth) {
                         res.status(400).send('Invalid password');
                     }
+                    // console.log(auth);
                     const token = jwt.sign({
                             id: authUser.id,
                         },
                         process.env.JWT_KEY);
-                    return res.status(200).json({
-                        token
-                    })
+                    // let userInfo = {
+                    //   first_name: authUser.first_name,
+                    //   last_name: authUser.last_name,
+                    //   username: authUser.username,
+                    //   token: token
+                    // }
+                    // console.log('what is user info', userInfo);
+                    // console.log(token, typeof token);
+                    return res.status(200).json({ token })
                 })
                 .catch((err) => {
-                    res.status(400).json('bad username or password')
+                    return res.status(400).json('bad username or password')
                 })
         })
         .catch((err) => {
-            res.status.json('bad username or password')
+            return res.status(400).json('badusername or password')
         });
 };
 
-module.exports = {userLogin}
+module.exports = {
+    userLogin
+}

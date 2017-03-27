@@ -1,9 +1,8 @@
 'use strict';
 exports.seed = function(knex, Promise) {
-  // Deletes ALL existing entries
   return knex('users').del()
     .then(function () {
-      // Inserts seed entries
+      return Promise.all([
       return knex('users').insert([
         {
           id: 1,
@@ -39,8 +38,17 @@ exports.seed = function(knex, Promise) {
           hashed_password: '$2a$12$9y4QLq4FgrDi7O7MKssVbuGo0FDI/iLZ52OAySRD8YEX1vp/wB8QO', //ILoveJOI
           first_name: 'Marty',
           last_name:  'Yee'
+        },
+        {
+          id: 6,
+          username: 'Sasha',
+          hashed_password:
+          '$2a$12$9y4QLq4FgrDi7O7MKssVbuGo0FDI/iLZ52OAySRD8YEX1vp/wB8QO',
+          first_name: 'Sasha',
+          last_name: 'Dog'
         }
       ]);
+    ]);
     })
     .then(() => {
            return knex.raw("SELECT setval('users_id_seq', (SELECT MAX(id) FROM users))");
