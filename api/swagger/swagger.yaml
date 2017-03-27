@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "0.0.1"
-  title: Trip Planner
+  title: PackaVacay
 # during dev, should point to your local machine
 host: localhost:10010
 # basePath prefixes all resource paths
@@ -104,7 +104,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-
+            
   /flight/fetchFlight/{currentCity}/{destinationCity}/{departureDate}:
     x-swagger-router-controller: fetchFlight
     get:
@@ -118,13 +118,13 @@ paths:
           description: airport city user will depart from
           required: true
           type: string
-
+          
         - name: destinationCity
           in: path
-          description: destination airport city
+          description: destination airport city 
           required: true
           type: string
-
+          
         - name: departureDate
           in: path
           description: departure date for required flight
@@ -139,7 +139,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-
+  
   /hotel:
     x-swagger-router-controller: hotel
     get:
@@ -317,6 +317,32 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+    # post:
+    #   description: adding new a package for the user
+    #   operationId: PostUniquePackagePerUser
+    #   produces:
+    #     - application/json
+    #   parameters:
+    #     - name: id
+    #       type: integer
+    #       in: path
+    #       required: true
+    #       description: adding an package info into the user_package table
+    #     - name: body
+    #       in: body
+    #       description: adding an package to that user
+    #       required: true
+    #       schema:
+    #         $ref: "#/definitions/AddNewPackage"
+    #   responses:
+    #     "200":
+    #       description: Success
+    #       schema:
+    #         $ref: "#/definitions/GeneralPackage"
+    #     default:
+    #       description: Error
+    #       schema:
+    #         $ref: "#/definitions/ErrorResponse"
 
   /users/{user_id}/packages/{package_id}:
     x-swagger-router-controller: packages
@@ -350,7 +376,60 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-
+    # put:
+    #   # define the parameters
+    #   description: updating a new package
+    #   operationId: UpdateUniquePackageUniqueUser
+    #   produces:
+    #     - application/json
+    #   parameters:
+    #     - name: user_id
+    #       description: loooking for specific user
+    #       type: integer
+    #       format: int64
+    #       in: path
+    #       required: true
+    #     - name: package_id
+    #       description: looking for specific package
+    #       type: integer
+    #       format: int64
+    #       in: path
+    #       required: true
+    #     - name: body
+    #       description: this is what user want to update
+    #       in: body
+    #       required: true
+    #       schema:
+    #         $ref: "#/definitions/PackageDetail"
+    #   responses:
+    #     "200":
+    #       description: Success
+    #       schema:
+    #         $ref: "#/definitions/PackageDetail"
+    #     default:
+    #       description: Error
+    #       schema:
+    #         $ref: "#/definitions/ErrorResponse"
+    # delete:
+    #   # define the parameters
+    #   description: deleting a package
+    #   produces:
+    #     - application/json
+    #   operationId: DeleteUniquePackageUniqueUser
+    #   parameters:
+    #     - name: user_id
+    #       description: loooking for specific user
+    #       type: integer
+    #       format: int64
+    #       in: path
+    #       required: true
+    #     - name: package_id
+    #       description: looking for specific package
+    #       type: integer
+    #       format: int64
+    #       in: path
+    #       required: true
+ 
   /login:
     x-swagger-router-controller: userLogin
     post:
@@ -375,6 +454,16 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+     
+    #   responses:
+    #     "200":
+    #       description: Success
+    #       schema:
+    #         $ref: "#/definitions/PackageDetail"
+    #     default:
+    #       description: Error
+    #       schema:
+    #         $ref: "#/definitions/ErrorResponse"
 
 
   /swagger:
@@ -428,7 +517,7 @@ definitions:
         type: integer
       airline:
         type: string
-      flight_id:
+      flight_id: 
         type: integer
       flight_cost:
         type: integer
@@ -444,8 +533,29 @@ definitions:
         type: integer
       hotels_cost:
         type: integer
+            
 
-
+  # AddNewPackage:
+  #   required:
+  #     - id
+  #     - budget
+  #     - flight_id
+  #     - restaurant_id
+  #     - hotel_id
+  #     - user_id
+  #   properties:
+  #     id:
+  #       type: integer
+  #     budget:
+  #       type: integer
+  #     flight_id:
+  #       type: string
+  #     restaurant_id:
+  #       type: string
+  #     hotel_id:
+  #       type: string
+  #     user_id:
+  #       type: string
 
   PackageDetail:
     type: object
@@ -485,6 +595,34 @@ definitions:
       hotels_cost:
         type: integer
 
+  # GeneralPackage:
+  #   type: object
+  #   required:
+  #     - id
+  #     - budget
+  #     - flight_id
+  #     - restaurant_id
+  #     - hotel_id
+  #     - user_id
+  #   properties:
+  #     id:
+  #       type: integer
+  #       description: package id
+  #     budget:
+  #       type: integer
+  #       description: amount of dollar
+  #     flight_id:
+  #       type: integer
+  #       description: the flight id
+  #     restaurant_id:
+  #       type: integer
+  #       description: the restaurant id
+  #     hotel_id:
+  #       type: integer
+  #       description: the hotel id
+  #     user_id:
+  #       type: integer
+  #       description: the user id
 
   GetRestaurantResponse:
     required:
@@ -595,7 +733,7 @@ definitions:
         type: string
       username:
         type: string
-
+        
   userLog:
     type: object
     required:
@@ -606,14 +744,14 @@ definitions:
         type: string
       password:
         type: string
-
+ 
   loggedIn:
     required:
       - token
     properties:
       token:
         type: string
-
+      
   PostUsersResponse:
     type: object
     required:
@@ -630,7 +768,7 @@ definitions:
         type: string
       username:
         type: string
-
+        
   fetchFlightResponse:
     type: object
     required:
