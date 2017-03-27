@@ -17,11 +17,12 @@ function GetAllFlight(req, res) {
     //       res.send(true);
     //   }
     // });
-  fetch('http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=ga559494378282545481811892645063')
+  fetch("http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=" + process.env.FLIGHTAPI)
   .then((response) => {
       return response.json();
   })
   .then((realRes) => {
+    // console.log('reslRes', realRes);
       let finalArray = [];
 
       realRes["Quotes"].forEach((ele) => {
@@ -62,10 +63,11 @@ function GetAllFlight(req, res) {
         });
         let newArray = finalArray.filter((ele)=>{
           return (ele.departure_city.includes(req.query.departure_city) )
+          // res.status(200).send(finalArray);
       })
       // console.log('what is finalArray', newArray );
-      res.status(200);
-      res.send(newArray);
+      res.send(newArray)
+      // console.log('WHAT IS RESULT', finalArray);
   })
   // return knex('flights')
   //   .select('*')

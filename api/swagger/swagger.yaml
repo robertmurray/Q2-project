@@ -461,7 +461,7 @@ definitions:
       - cost
     properties:
       id:
-        type: string
+        type: integer
       name:
         type: string
       city_name:
@@ -469,7 +469,7 @@ definitions:
       street_name:
         type: string
       cost:
-        type: string
+        type: integer
 
   GetHotelResponse:
     required:

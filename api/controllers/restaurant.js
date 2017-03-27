@@ -19,14 +19,23 @@ yelp.search({ term: 'food', location: req.query.departure_city, limit:20 , ratin
 .then(function (data) {
   let finalArray = [];
   data.businesses.forEach((ele) => {
+    // console.log('what is ele?',ele);
   let result = {};
+  console.log('what is ele',ele);
   result.id = 0;
   result.name = ele.name
   result.city_name = req.query.departure_city
+  if(!ele.location.cross_streets){
+    result.street_name = 'undefined'
+  }
+  else{
   result.street_name = ele.location.cross_streets
+  }
   result.cost = 0;
+  // console.log('what is result?', result);
   finalArray.push(result);
 });
+// console.log('what is finalArray', finalArray);
 res.json(finalArray);
 })
 .catch(function (err) {
