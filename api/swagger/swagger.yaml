@@ -105,64 +105,6 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-  /restaurant/{id}:
-    x-swagger-router-controller: restaurant
-    get:
-      description: get the relevant restaurant info
-      operationId: GetSpecificRestaurant
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: id
-          description: id of the flight that we want to look up
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/GetRestaurantResponse"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-
-  /flight/fetchFlight/{currentCity}/{destinationCity}/{departureDate}:
-    x-swagger-router-controller: fetchFlight
-    get:
-      description: fetch a flight to place in package
-      operationId: fetchFlight
-      produces:
-        - application/json
-      parameters:
-        - name: currentCity
-          in: path
-          description: airport city user will depart from
-          required: true
-          type: string
-
-        - name: destinationCity
-          in: path
-          description: destination airport city
-          required: true
-          type: string
-
-        - name: departureDate
-          in: path
-          description: departure date for required flight
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/fetchFlightResponse"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
 
   /hotel:
     x-swagger-router-controller: hotel
@@ -655,28 +597,6 @@ definitions:
       username:
         type: string
 
-  fetchFlightResponse:
-    type: object
-    required:
-      - airline
-      - cost
-      - destination_city
-      - departure_city
-      - arrival_date
-      - departure_date
-    properties:
-      airline:
-        type: string
-      cost:
-        type: integer
-      destination_city:
-        type: string
-      departure_city:
-        type: string
-      arrival_date:
-        type: string
-      departure_date:
-        type: string
 
   ErrorResponse:
     required:

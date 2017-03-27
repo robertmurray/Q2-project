@@ -20,22 +20,18 @@ yelp.search({ term: 'food', location: req.query.departure_city, limit:20 , ratin
   let finalArray = [];
   data.businesses.forEach((ele) => {
   let result = {};
-  result.id = 'undefined';
+  result.id = 0;
   result.name = ele.name
   result.city_name = req.query.departure_city
   result.street_name = ele.location.cross_streets
-  result.cost = 'undefined';
-  // console.log(result);
+  result.cost = 0;
   finalArray.push(result);
-  // console.log('yelp data', data);
 });
 res.json(finalArray);
-
 })
 .catch(function (err) {
   console.error(err);
 });
-
   // return knex('restaurants')
   //   .then((restaurants) => {
   //     res.status(200).json(restaurants);
