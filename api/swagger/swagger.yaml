@@ -656,14 +656,11 @@ definitions:
 
   GetHotelResponse:
     required:
-      - id
       - name
       - city_name
       - street_name
       - cost
     properties:
-      id:
-        type: integer
       name:
         type: string
       city_name:
