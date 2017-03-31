@@ -600,17 +600,17 @@ definitions:
       - name
       - city_name
       - street_name
-      - cost
+      - view_count
     properties:
       id:
-        type: integer
+        type: string
       name:
         type: string
       city_name:
         type: string
       street_name:
         type: string
-      cost:
+      view_count:
         type: integer
 
   GetHotelResponse:
