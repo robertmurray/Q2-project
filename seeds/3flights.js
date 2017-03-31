@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
   return knex('flights').del()
     .then(function () {
       return Promise.all([
-      return knex('flights').insert([
+       knex('flights').insert([
         {
           id: 1,
           airline: 'Delta',

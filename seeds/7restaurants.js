@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
   return knex('restaurants').del()
     .then(function () {
       return Promise.all([
-      return knex('restaurants').insert([
+       knex('restaurants').insert([
         {
           id: 1,
           name: 'McDonalds',
@@ -39,7 +39,7 @@ exports.seed = function(knex, Promise) {
           city_name:  'San Francisco',
           cost: 20.00
         }
-      ]);
+      ])
     ])
     })
     .then(() => {

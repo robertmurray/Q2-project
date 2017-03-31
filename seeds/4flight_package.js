@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
   return knex('flight_package').del()
     .then(function () {
       return Promise.all([
-      return knex('flight_package').insert([
+       knex('flight_package').insert([
         {
           id: 1,
           flight_id: 1,
@@ -29,7 +29,7 @@ exports.seed = function(knex, Promise) {
           flight_id: 5,
           package_id:5
         }
-      ]);
+      ])
     ])
     })
     .then(() => {

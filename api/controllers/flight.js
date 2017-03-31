@@ -60,12 +60,15 @@ function GetAllFlight(req, res) {
           result.arrival_date = ele.InboundLeg.DepartureDate;
 
           finalArray.push(result);
+          console.log('what is result', result);
           // res.set('Content-Type', 'application/json')
         });
         let newArray = finalArray.filter((ele)=>{
           return (ele.departure_city.includes(req.query.departure_city)) && (ele.departure_date.includes(req.swagger.params.departure_date.value))
         })
-        knex('flight').insert([])
+        // knex('flight').insert([])
+        console.log('am i here');
+        console.log('what is newArray?', newArray);
         res.send(newArray);
   })
   .catch((err) => {

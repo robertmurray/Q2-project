@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
   return knex('hotels').del()
     .then(function () {
       return Promise.all([
-      return knex('hotels').insert([
+       knex('hotels').insert([
         {
           id: 1,
           name: 'Trump Tower',
@@ -44,7 +44,7 @@ exports.seed = function(knex, Promise) {
             cost: 200.00,
             date: '2017/06/10'
           }
-      ]);
+      ])
     ])
     })
     .then(() => {

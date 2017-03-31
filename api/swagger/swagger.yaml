@@ -286,33 +286,33 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-
-    # post:
-    #   description: adding new a package for the user
-    #   operationId: PostUniquePackagePerUser
-    #   produces:
-    #     - application/json
-    #   parameters:
-    #     - name: id
-    #       type: integer
-    #       in: path
-    #       required: true
-    #       description: adding an package info into the user_package table
-    #     - name: body
-    #       in: body
-    #       description: adding an package to that user
-    #       required: true
-    #       schema:
-    #         $ref: "#/definitions/AddNewPackage"
-    #   responses:
-    #     "200":
-    #       description: Success
-    #       schema:
-    #         $ref: "#/definitions/GeneralPackage"
-    #     default:
-    #       description: Error
-    #       schema:
-    #         $ref: "#/definitions/ErrorResponse"
+            
+    post:
+      description: adding new a package for the user
+      operationId: PostUniquePackagePerUser
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: adding an package to that user
+          required: true
+          schema:
+            $ref: "#/definitions/AddNewPackage"
+        - name: id
+          in: path
+          description: the id of the user
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/PackageDetail"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
 
   /users/{user_id}/packages/{package_id}:
     x-swagger-router-controller: packages
@@ -505,27 +505,30 @@ definitions:
         type: integer
             
 
-  # AddNewPackage:
-  #   required:
-  #     - id
-  #     - budget
-  #     - flight_id
-  #     - restaurant_id
-  #     - hotel_id
-  #     - user_id
-  #   properties:
-  #     id:
-  #       type: integer
-  #     budget:
-  #       type: integer
-  #     flight_id:
-  #       type: string
-  #     restaurant_id:
-  #       type: string
-  #     hotel_id:
-  #       type: string
-  #     user_id:
-  #       type: string
+  AddNewPackage:
+    required:
+      - id
+      - package_id
+      - budget
+      - flight_id
+      - restaurant_id
+      - hotel_id
+      - user_id
+    properties:
+      id:
+        type: integer
+      package_id:
+        type: integer
+      budget:
+        type: integer
+      flight_id:
+        type: string
+      restaurant_id:
+        type: string
+      hotel_id:
+        type: string
+      user_id:
+        type: string
 
   PackageDetail:
     type: object
@@ -736,6 +739,7 @@ definitions:
       - first_name
       - last_name
       - username
+ 
     properties:
       id:
         type: integer
@@ -745,6 +749,7 @@ definitions:
         type: string
       username:
         type: string
+    
   ErrorResponse:
     required:
       - message
