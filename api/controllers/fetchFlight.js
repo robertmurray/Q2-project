@@ -3,7 +3,7 @@ var util = require('util');
 var knex = require('../../knex.js')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const header = require('module-header')
+// const header = require('module-header')
 const request = require('request');
 
 function fetchFlight(req, res){
