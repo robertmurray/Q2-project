@@ -21,7 +21,7 @@ yelp.search({ term: 'food', location: req.query.departure_city, limit:20 , ratin
   data.businesses.forEach((ele) => {
     // console.log('what is ele?',ele);
   let result = {};
-  console.log('what is ele',ele);
+  // console.log('what is ele',ele);
   result.id = 0;
   result.name = ele.name
   result.city_name = req.query.departure_city

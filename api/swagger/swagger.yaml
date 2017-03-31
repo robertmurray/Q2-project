@@ -32,6 +32,11 @@ paths:
           description: departure_city
           required: true
           type: string
+        - in: query
+          name: departure_date
+          description: enter the date in 'yyyy-mm-dd' format
+          required: true
+          type: string
         # - in: query
         #   name: arrival_city
         #   description: arrival_city
@@ -209,7 +214,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-    put:
+    patch:
       # define the parameters
       description: updating an new user
       operationId: UpdateUser
@@ -222,7 +227,7 @@ paths:
           format: int64
           in: path
           required: true
-        - in: "body"
+        - in: body
           name: "jsonPatch"
           required: true
           schema:
@@ -318,7 +323,7 @@ paths:
 
 
   /login:
-    x-swagger-router-controller: userLogin
+    x-swagger-router-controller: login
     post:
     #define paramaters
       description: User login
@@ -326,12 +331,12 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: user
-          in: body
-          description: Allow user to login
+       -  in: body
+          name: "username and password"
           required: true
           schema:
-            $ref: "#/definitions/userLog"
+            $ref: "#/definitions/signin"
+          
       responses:
         "200":
           description: Success
@@ -527,14 +532,11 @@ definitions:
   updateUser:
     type: object
     required:
-      - id
       - first_name
       - last_name
       - username
       - password
     properties:
-      id:
-        type: integer
       first_name:
         type: string
       last_name:
@@ -562,7 +564,7 @@ definitions:
       username:
         type: string
 
-  userLog:
+  signin:
     type: object
     required:
       - username
@@ -575,10 +577,23 @@ definitions:
 
   loggedIn:
     required:
+      - id
+      - user_name
+      - first_name
+      - last_name
       - token
     properties:
+      id:
+        type: integer
+      user_name:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
       token:
         type: string
+        
 
   PostUsersResponse:
     type: object
