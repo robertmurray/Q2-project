@@ -1,16 +1,53 @@
 'use strict';
 var util = require('util');
 var knex = require('../../knex.js');
+var Yelp = require('yelp');
 
 
 function GetAllRestaurant(req, res){
-  return knex('restaurants')
-    .then((restaurants) => {
-      res.send(restaurants);
-    })
-    .catch((err) => {
-      throw err;
-    });
+
+  // Request API access: http://www.yelp.com/developers/getting_started/api_access
+var yelp = new Yelp({
+  consumer_key: process.env.CONSUMER_KEY,
+  consumer_secret: process.env.CONSUMER_SECRET,
+  token: process.env.TOKEN,
+  token_secret: process.env.TOKEN_SECRET,
+});
+
+// See http://www.yelp.com/developers/documentation/v2/search_api
+yelp.search({ term: 'food', location: req.query.departure_city, limit:20 , rating: req.query.rating})
+.then(function (data) {
+  let finalArray = [];
+  data.businesses.forEach((ele) => {
+    // console.log('what is ele?',ele);
+  let result = {};
+  // console.log('what is ele',ele);
+  result.id = 0;
+  result.name = ele.name
+  result.city_name = req.query.departure_city
+  if(!ele.location.cross_streets){
+    result.street_name = 'undefined'
+  }
+  else{
+  result.street_name = ele.location.cross_streets
+  }
+  result.cost = 0;
+  // console.log('what is result?', result);
+  finalArray.push(result);
+});
+// console.log('what is finalArray', finalArray);
+res.json(finalArray);
+})
+.catch(function (err) {
+  console.error(err);
+});
+  // return knex('restaurants')
+  //   .then((restaurants) => {
+  //     res.status(200).json(restaurants);
+  //   })
+  //   .catch((err) => {
+  //     throw err;
+  //   });
 };
 
 function GetSpecificRestaurant(req, res){

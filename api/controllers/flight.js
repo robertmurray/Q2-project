@@ -17,13 +17,12 @@ function GetAllFlight(req, res) {
     //       res.send(true);
     //   }
     // });
-  fetch('http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=ga559494378282545481811892645063')
+  fetch("http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=" + process.env.FLIGHTAPI)
   .then((response) => {
       return response.json();
   })
   .then((realRes) => {
       let finalArray = [];
-
       realRes["Quotes"].forEach((ele) => {
           let result = {};
           let Airline = realRes["Carriers"].filter((flight) => {
@@ -50,6 +49,9 @@ function GetAllFlight(req, res) {
               destinationLocation.Name;
           let QuoteId = ele.QuoteId;
           result.id = parseInt(QuoteId);
+          if (Airline === undefined) {
+              Airline = 'ID_Missing'
+          }
           result.airline = Airline;
           result.cost = parseInt(ele.MinPrice);
           result.destination_city = destinationCity;
@@ -61,26 +63,11 @@ function GetAllFlight(req, res) {
           // res.set('Content-Type', 'application/json')
         });
         let newArray = finalArray.filter((ele)=>{
-          return (ele.departure_city.includes(req.query.departure_city) )
-          // res.status(200).send(finalArray);
-      })
-      console.log('what is finalArray', newArray );
-      res.send(newArray);
-      // console.log('WHAT IS RESULT', finalArray);
+          return (ele.departure_city.includes(req.query.departure_city)) && (ele.departure_date.includes(req.swagger.params.departure_date.value))
+        })
+        knex('flight').insert([])
+        res.send(newArray);
   })
-  // return knex('flights')
-  //   .select('*')
-  //     .then((result) => {
-  //         if(result){
-  //           res.set('Content-Type', 'application/json')
-  //           res.send(result);
-  //         }
-  //       else{
-  //         res.status(400);
-  //         res.send('this is not a valid input')
-  //         throw new Error("this end point doesn't exist");
-  //       }
-  //     })
   .catch((err) => {
       console.error(err);
   })

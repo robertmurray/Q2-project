@@ -73,22 +73,32 @@ function UpdateUser(req, res) {
     return bcrypt.hash(updatedUser.password, 12)
         .then((hashed_password) => {
             updatedUser.hashed_password = hashed_password;
-            delete updatedUser.password;
             return knex('users')
-                .where('id', updatedUser.id)
-                .update(updatedUser)
+                .where('id', req.swagger.params.id.value)
+                .update({first_name: req.body.first_name,
+                        last_name: req.body.last_name,
+                        username: req.body.username
+                      }, '*')
+                .first()
                 .then((updated) => {
-                    delete updatedUser.hashed_password;
+                  console.log('what is update?', updated);
+                    delete updated.hashed_password;
                     if (updated) {
-                        res.send(updatedUser);
+                      console.log('what am i sending', updated);
+                        res.send(updated);
+                    }
+                    else{
+                      throw new Error('it is not here');
                     }
                 })
                 .catch((err) => {
-                    throw err;
+                  res.status(404);
+                  res.send({status: 404, ErrorMessage: 'Not Found.'});
                 })
         })
         .catch((err) => {
-            throw err;
+          res.status(404);
+          res.send({status: 404, ErrorMessage: 'Not Found.'});
         });
 };
 
@@ -98,6 +108,9 @@ function DeleteUser(req, res) {
     return knex('users')
         .where('id', deleteUserId)
         .then((user) => {
+          if(!user){
+            throw new Error('it is not here');
+          }
             deletedUser = user[0];
             delete deletedUser.hashed_password;
             res.json(deletedUser);
@@ -108,7 +121,8 @@ function DeleteUser(req, res) {
                 .del()
         })
         .catch((err) => {
-            throw err;
+          res.status(404);
+          res.send({status: 404, ErrorMessage: 'Not Found.'});
         })
 };
 
