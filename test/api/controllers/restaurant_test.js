@@ -36,38 +36,38 @@ suite('restaurant routes', () => {
       .expect(200,[
         {
           id: 1,
-          name: 'McDonalds',
-          street_name: '3828 McDonald Way',
-          city_name: 'Miami',
-          cost: 5.00
+          name: 'OzaOza',
+          street_name: '1700 Post St',
+          city_name: 'San Francisco',
+          review: 200
         },
         {
           id: 2,
           name: 'Red Lobster',
           street_name: '9356 Lexington Way',
           city_name: 'New York City',
-          cost: 50.00
+          review: 200
         },
         {
           id: 3,
-          name: 'Wingstop',
-          street_name: '9356 Lexington Way',
-          city_name: 'Atlanta',
-          cost: 20.00
+          name: 'Alba Ray’s',
+          street_name: '2293 Mission St',
+          city_name: 'San Francisco',
+          review:200
         },
         {
           id: 4,
-          name: 'Red Lobster',
-          street_name: '26 Redford Ln',
-          city_name: 'Miami',
-          cost: 100.00
+          name: 'Nopa',
+          street_name: '560 Divisadero St',
+          city_name: 'San Francisco',
+          review: 200
         },
         {
           id: 5,
-          name: 'Oasis',
-          street_name: '2nd St',
-          city_name:  'San Francisco',
-          cost: 20.00
+          name: 'Tacorea',
+          street_name: '809 Bush St',
+          city_name: 'San Francisco',
+          review: 300
         }
       ], done)
   });

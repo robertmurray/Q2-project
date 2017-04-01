@@ -6,41 +6,41 @@ exports.seed = function(knex, Promise) {
        knex('hotels').insert([
         {
           id: 1,
-          name: 'Trump Tower',
-          city_name: 'Miami',
-          street_name: '38 Ivanka Ave',
+          name: 'Hayes Valley Inn',
+          city_name: 'San Francisco',
+          street_name: '417 Gough St',
           cost: 300.00,
           date: '2017/06/24'
         },
         {
           id: 2,
-          name: 'Holiday Inn',
-          city_name: 'New York City',
-          street_name: '3800 Main St',
+          name: 'Omni San Francisco Hotel',
+          city_name: 'San Francisco',
+          street_name: '319 Divisadero St',
           cost: 150.00,
           date: '2017/05/25'
         },
         {
           id: 3,
           name: 'Gucci Mane Hotel',
-          city_name:  'Atlanta',
-          street_name: '3242 Trill Vill',
+          city_name:  'San Francisco',
+          street_name: '500 California St',
           cost: 150.00,
           date: '2017/12/12'
         },
           {
             id: 4,
-            name: 'Trump Tower',
-            city_name: 'Miami',
-            street_name: '38 Ivanka Ave',
+            name: 'Chateau Tivoli Bed & Breakfast Inn',
+            city_name: 'San Francisco',
+            street_name: '1057 Steiner St',
             cost: 400.00,
             date: '2017/04/10'
           },
           {
             id: 5,
-            name: 'Galvanize Hotel',
+            name: 'Hotel Abri',
             city_name: 'San Francisco',
-            street_name: '44 Tehama St',
+            street_name: '127 Ellis Street',
             cost: 200.00,
             date: '2017/06/10'
           }

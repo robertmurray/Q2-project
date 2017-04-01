@@ -4,8 +4,8 @@ var knex = require('../../knex.js')
 
 function GetAllPackagePerUser(req, res, err) {
     // console.log('did i get here?');
-    return knex.from('users')
-        .innerJoin('user_packages', 'users.id', 'user_packages.id')
+    return knex('users')
+        .join('user_packages', 'users.id', 'user_packages.id')
         .join('flight_package', 'flight_package.package_id', 'user_packages.id')
         .join('flights', 'flights.id', 'flight_package.flight_id')
         .join('hotel_package', 'hotel_package.package_id', 'user_packages.id')
@@ -13,7 +13,7 @@ function GetAllPackagePerUser(req, res, err) {
         .join('restaurant_package', 'restaurant_package.package_id', 'user_packages.id')
         .join('restaurants', 'restaurants.id', 'restaurant_package.restaurant_id')
         .select('user_packages.id as package_id', 'users.id as user_id', 'airline', 'flights.id as flight_id', 'flights.cost as flight_cost', 'restaurants.name as restaurant_name', 'restaurants.id as restaurant_id',
-            'restaurants.cost as restaurants_cost', 'hotels.name as hotels_name', 'hotels.id as hotels_id', 'hotels.cost as hotels_cost')
+            'restaurants.review as restaurants_review', 'hotels.name as hotels_name', 'hotels.id as hotels_id', 'hotels.cost as hotels_cost')
         .where('user_packages.id', req.swagger.params.id.value)
         .returning('*')
         .then((result) => {
@@ -33,8 +33,8 @@ function GetAllPackagePerUser(req, res, err) {
 
 function GetUniquePackageUniqueUser(req, res, err) {
     console.log('am i here');
-    return knex.from('users')
-        .innerJoin('user_packages', 'users.id', 'user_packages.id')
+    return knex('users')
+        .join('user_packages', 'users.id', 'user_packages.id')
         .join('flight_package', 'flight_package.package_id', 'user_packages.id')
         .join('flights', 'flights.id', 'flight_package.flight_id')
         .join('hotel_package', 'hotel_package.package_id', 'user_packages.id')
@@ -42,7 +42,7 @@ function GetUniquePackageUniqueUser(req, res, err) {
         .join('restaurant_package', 'restaurant_package.package_id', 'user_packages.id')
         .join('restaurants', 'restaurants.id', 'restaurant_package.restaurant_id')
         .select('user_packages.id as package_id', 'users.id as user_id', 'airline', 'flights.id as flight_id', 'flights.cost as flight_cost', 'restaurants.name as restaurant_name', 'restaurants.id as restaurant_id',
-            'restaurants.cost as restaurants_cost', 'hotels.name as hotels_name', 'hotels.id as hotels_id', 'hotels.cost as hotels_cost')
+            'restaurants.view as restaurants.view', 'hotels.name as hotels_name', 'hotels.id as hotels_id', 'hotels.cost as hotels_cost')
         .where('user_packages.id', req.swagger.params.package_id.value)
         .andWhere('user_id', req.swagger.params.user_id.value)
         .then((result) => {
@@ -60,37 +60,39 @@ function GetUniquePackageUniqueUser(req, res, err) {
         })
 }
 
-function PostUniquePackagePerUser(req, res) {
-    knex('user_packages')
+function PostUniquePackagePerUser(req, res, err) {
+  // console.log('am i here');
+    return knex('user_packages')
         .insert({
-            'id': req.body.package_id,
+            'id': req.body.id,
             'budget': req.body.budget,
             'user_id': req.body.user_id
-        })
-    .then(()=>{
+        }).returning('*')
+    .then((result)=>{
+      console.log('what is result',result);
       return knex('flight_package')
           .insert({
               'flight_id': req.body.flight_id,
-              'package_id': req.body.package_id,
-          })
+              'package_id': req.body.id,
+          }).returning('*')
     })
     .then(() => {
       return knex('hotel_package')
           .insert({
               'hotel_id': req.body.hotel_id,
-              'package_id': req.body.package_id
-          })
+              'package_id': req.body.id
+          }).returning('*')
     })
     .then(() => {
       return knex('restaurant_package')
           .insert({
               'restaurant_id': req.body.restaurant_id,
-              'package_id': req.body.package_id
-          })
+              'package_id': req.body.id
+          }).returning('*')
     })
     .then(() => {
-      knex.from('users')
-          .innerJoin('user_packages', 'users.id', 'user_packages.id')
+      knex('users')
+          .join('user_packages', 'users.id', 'user_packages.id')
           .join('flight_package', 'flight_package.package_id', 'user_packages.id')
           .join('flights', 'flights.id', 'flight_package.flight_id')
           .join('hotel_package', 'hotel_package.package_id', 'user_packages.id')
@@ -98,7 +100,7 @@ function PostUniquePackagePerUser(req, res) {
           .join('restaurant_package', 'restaurant_package.package_id', 'user_packages.id')
           .join('restaurants', 'restaurants.id', 'restaurant_package.restaurant_id')
           .select('user_packages.id as package_id', 'users.id as user_id', 'airline', 'flights.id as flight_id', 'flights.cost as flight_cost', 'restaurants.name as restaurant_name', 'restaurants.id as restaurant_id',
-              'restaurants.cost as restaurants_cost', 'hotels.name as hotels_name', 'hotels.id as hotels_id', 'hotels.cost as hotels_cost')
+              'restaurants.view as restaurants_view', 'hotels.name as hotels_name', 'hotels.id as hotels_id', 'hotels.cost as hotels_cost')
           .where('user_packages.id', req.body.package_id)
           .returning('*')
           .then((result) => {
@@ -113,7 +115,7 @@ function PostUniquePackagePerUser(req, res) {
           })
     })
     .catch((err) => {
-        console.err(err)
+        console.error(err)
     });
 }
 
@@ -129,7 +131,7 @@ function DeleteUniquePackageUniqueUser() {
 }
 module.exports = {
     GetAllPackagePerUser: GetAllPackagePerUser,
-    // PostUniquePackagePerUser: PostUniquePackagePerUser,
+    PostUniquePackagePerUser: PostUniquePackagePerUser,
     GetUniquePackageUniqueUser: GetUniquePackageUniqueUser,
     // UpdateUniquePackageUniqueUser: UpdateUniquePackageUniqueUser,
     // DeleteUniquePackageUniqueUser: DeleteUniquePackageUniqueUser

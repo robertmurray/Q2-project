@@ -37,11 +37,12 @@ paths:
           description: enter the date in 'yyyy-mm-dd' format
           required: true
           type: string
-        # - in: query
-        #   name: arrival_city
-        #   description: arrival_city
-        #   required: true
-        #   type: string
+        - in: header
+          name: token
+          required: true
+          type: string
+          description: this is token
+
       responses:
         "200":
           description: Success
@@ -54,29 +55,29 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-  /flight/{id}:
-    x-swagger-router-controller: flight
-    get:
-      description: get a flight by id
-      operationId: GetFlight
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: id
-          description: id of the flight that we want to look up
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/GetFlightResponse"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
+  # /flight/{id}:
+  #   x-swagger-router-controller: flight
+  #   get:
+  #     description: get a flight by id
+  #     operationId: GetFlight
+  #     produces:
+  #       - application/json
+  #     parameters:
+  #       - in: path
+  #         name: id
+  #         description: id of the flight that we want to look up
+  #         required: true
+  #         type: integer
+  #         format: int64
+  #     responses:
+  #       "200":
+  #         description: Success
+  #         schema:
+  #           $ref: "#/definitions/GetFlightResponse"
+  #       default:
+  #         description: Error
+  #         schema:
+  #           $ref: "#/definitions/ErrorResponse"
 
   /restaurant:
     x-swagger-router-controller: restaurant
@@ -476,7 +477,7 @@ definitions:
       - flight_cost
       - restaurant_name
       - restaurant_id
-      - restaurants_cost
+      - restaurants_review
       - hotels_name
       - hotels_id
       - hotels_cost
@@ -495,7 +496,7 @@ definitions:
         type: string
       restaurant_id:
         type: integer
-      restaurants_cost:
+      restaurants_review:
         type: integer
       hotels_name:
         type: string
@@ -540,7 +541,7 @@ definitions:
       - flight_cost
       - restaurant_name
       - restaurant_id
-      - restaurants_cost
+      - restaurants_review
       - hotels_name
       - hotels_id
       - hotels_cost
@@ -559,7 +560,7 @@ definitions:
         type: string
       restaurant_id:
         type: integer
-      restaurants_cost:
+      restaurants_review:
         type: integer
       hotels_name:
         type: string
