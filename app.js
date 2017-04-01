@@ -1,14 +1,20 @@
 'use strict';
+// let app = express();
 // if (process.env.NODE_ENV!== 'production'){
 //   require('dotenv').config();
 // }
+// let verify = require('./api/controllers/validation.js')
 var SwaggerExpress = require('swagger-express-mw');
 var app = require('express')();
+
 module.exports = app; // for testing
 
 var config = {
   appRoot: __dirname // required config
 };
+
+//middleware goes here
+// app.use('/flight', verify.middlewareVerify);
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }

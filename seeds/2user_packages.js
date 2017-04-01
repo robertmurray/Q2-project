@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
   return knex('user_packages').del()
     .then(function () {
       return Promise.all([
-      return knex('user_packages').insert([
+          knex('user_packages').insert([
         {
           id: 1,
           budget: 700,
@@ -29,7 +29,7 @@ exports.seed = function(knex, Promise) {
           budget: 2000,
           user_id:  1
         }
-      ]);
+      ])
     ])
     })
     .then(() => {

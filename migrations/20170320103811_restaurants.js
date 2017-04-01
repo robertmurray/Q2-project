@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
     table.string('name').notNullable().defaultTo('');
     table.string('street_name').notNullable().defaultTo('');
     table.string('city_name').notNullable().defaultTo('');
-    table.float('cost').notNullable();
+    table.float('view_count').notNullable();
   });
 };
 

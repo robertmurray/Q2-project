@@ -37,11 +37,12 @@ paths:
           description: enter the date in 'yyyy-mm-dd' format
           required: true
           type: string
-        # - in: query
-        #   name: arrival_city
-        #   description: arrival_city
+        # - in: header
+        #   name: token
         #   required: true
         #   type: string
+        #   description: this is token
+
       responses:
         "200":
           description: Success
@@ -286,6 +287,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+<<<<<<< HEAD
 
     post:
       description: adding new a package for the user
@@ -320,22 +322,26 @@ paths:
       # define the parameters
       description: getting a specific user package
       operationId: GetUniquePackageUniqueUser
+=======
+            
+    post:
+      description: adding new a package for the user
+      operationId: PostUniquePackagePerUser
+>>>>>>> 2de5da5b036b0978e3b2fb8fd269459479044c52
       produces:
         - application/json
       parameters:
-        - name: user_id
-          description: loooking for specific user
-          type: integer
-          format: int64
-          in: path
+        - name: body
+          in: body
+          description: adding an package to that user
           required: true
-        - name: package_id
-          description: looking for specific package
-          type: integer
-          format: int64
+          schema:
+            $ref: "#/definitions/AddNewPackage"
+        - name: id
           in: path
+          description: the id of the user
           required: true
-
+          type: integer
       responses:
         "200":
           description: Success
@@ -345,6 +351,38 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
+  # /users/{user_id}/packages/{package_id}:
+  #   x-swagger-router-controller: packages
+  #   get:
+  #     # define the parameters
+  #     description: getting a specific user package
+  #     operationId: GetUniquePackageUniqueUser
+  #     produces:
+  #       - application/json
+  #     parameters:
+  #       - name: user_id
+  #         description: loooking for specific user
+  #         type: integer
+  #         format: int64
+  #         in: path
+  #         required: true
+  #       - name: package_id
+  #         description: looking for specific package
+  #         type: integer
+  #         format: int64
+  #         in: path
+  #         required: true
+
+  #     responses:
+  #       "200":
+  #         description: Success
+  #         schema:
+  #           $ref: "#/definitions/PackageDetail"
+  #       default:
+  #         description: Error
+  #         schema:
+  #           $ref: "#/definitions/ErrorResponse"
 
     # put:
     #   # define the parameters
@@ -476,7 +514,7 @@ definitions:
       - flight_cost
       - restaurant_name
       - restaurant_id
-      - restaurants_cost
+      - restaurants_review
       - hotels_name
       - hotels_id
       - hotels_cost
@@ -495,7 +533,7 @@ definitions:
         type: string
       restaurant_id:
         type: integer
-      restaurants_cost:
+      restaurants_review:
         type: integer
       hotels_name:
         type: string
@@ -506,6 +544,7 @@ definitions:
             
 
   AddNewPackage:
+<<<<<<< HEAD
     type: object
     required:
       - budget
@@ -523,6 +562,30 @@ definitions:
       destination_city:
         type: string
       departure_date:
+=======
+    required:
+      - id
+      - package_id
+      - budget
+      - flight_id
+      - restaurant_id
+      - hotel_id
+      - user_id
+    properties:
+      id:
+        type: integer
+      package_id:
+        type: integer
+      budget:
+        type: integer
+      flight_id:
+        type: string
+      restaurant_id:
+        type: string
+      hotel_id:
+        type: string
+      user_id:
+>>>>>>> 2de5da5b036b0978e3b2fb8fd269459479044c52
         type: string
 
   PackageDetail:
@@ -535,7 +598,7 @@ definitions:
       - flight_cost
       - restaurant_name
       - restaurant_id
-      - restaurants_cost
+      - restaurants_review
       - hotels_name
       - hotels_id
       - hotels_cost
@@ -554,7 +617,7 @@ definitions:
         type: string
       restaurant_id:
         type: integer
-      restaurants_cost:
+      restaurants_review:
         type: integer
       hotels_name:
         type: string
@@ -598,17 +661,17 @@ definitions:
       - name
       - city_name
       - street_name
-      - cost
+      - view_count
     properties:
       id:
-        type: integer
+        type: string
       name:
         type: string
       city_name:
         type: string
       street_name:
         type: string
-      cost:
+      view_count:
         type: integer
 
   GetHotelResponse:
@@ -734,6 +797,7 @@ definitions:
       - first_name
       - last_name
       - username
+ 
     properties:
       id:
         type: integer
@@ -743,6 +807,7 @@ definitions:
         type: string
       username:
         type: string
+    
   ErrorResponse:
     required:
       - message
