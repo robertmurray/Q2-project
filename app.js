@@ -14,7 +14,7 @@ var config = {
 };
 
 //middleware goes here
-app.use('/flight', verify.middlewareVerify);
+// app.use('/flight', verify.middlewareVerify);
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }

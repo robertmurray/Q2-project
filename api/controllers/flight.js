@@ -62,8 +62,7 @@ function GetAllFlight(req, res) {
         // console.log('am i here');
         // console.log('what is newArray?', newArray);
 
-
-        res.send(newArray);
+        res.status(200).json(newArray);
   })
   .catch((err) => {
       console.error(err);
@@ -75,11 +74,16 @@ function GetFlight(req, res) {
         .where('id', req.swagger.params.id.value)
         .returning('*')
         .then((result) => {
+            if(result[0]=== undefined){
+              res.status(404).send('please enter valid information');
+            }
+            else{
             res.set('Content-Type', 'application/json')
             res.send(result[0])
+          }
         })
         .catch((err) => {
-            next();
+            console.error(err);
         });
 }
 

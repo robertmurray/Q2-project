@@ -101,6 +101,7 @@ function UpdateUser(req, res) {
           .then((userInfo) => {
             let goodUser = userInfo[0];
             delete goodUser.hashed_password;
+            // console.log('WHAT IS THIS', userInfo);
             res.status(200).json(goodUser);
           })
           .catch((error) => {
@@ -159,7 +160,7 @@ function DeleteUser(req, res, next) {
     return knex('users').first()
       .where('id', req.swagger.params.id.value)
       .then((user) => {
-        console.log('what is user', user);
+        // console.log('what is user', user);
         if (user === undefined) {
           res.set('Content-Type', 'text/plain');
           res.status(404).send('This ID is Not Found, Please try another one');
@@ -176,7 +177,7 @@ function DeleteUser(req, res, next) {
       //   console.error(error)
       // })
       .then((deletedContent) => {
-        console.log('what is deletedContent', deletedContent);
+        // console.log('what is deletedContent', deletedContent);
         if (deletedContent) {
           // console.log('am i here');
           delete deletedContent[0].hashed_password;

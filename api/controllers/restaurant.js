@@ -35,7 +35,8 @@ function GetAllRestaurant(req, res) {
                 finalArray.push(result);
             });
             finalArray.sort((a,b) =>{ return b.view_count - a.view_count });
-            res.json(finalArray);
+            res.status(200).json(finalArray);
+            // console.log(finalArray);
         })
         .catch(function(err) {
             console.error(err);
@@ -43,21 +44,21 @@ function GetAllRestaurant(req, res) {
 
 };
 
-function GetSpecificRestaurant(req, res) {
-    return knex('restaurants')
-        .where('id', req.swagger.params.id.value)
-        .first()
-        .then((restaurant) => {
-            console.log(restaurant);
-            res.send(restaurant);
-        })
-        .catch((err) => {
-            console.error(err);
-        });
-};
+// function GetSpecificRestaurant(req, res) {
+//     return knex('restaurants')
+//         .where('id', req.swagger.params.id.value)
+//         .first()
+//         .then((restaurant) => {
+//             console.log(restaurant);
+//             res.status(200).send(restaurant);
+//         })
+//         .catch((err) => {
+//             console.error(err);
+//         });
+// };
 
 
 module.exports = {
     GetAllRestaurant: GetAllRestaurant,
-    GetSpecificRestaurant: GetSpecificRestaurant
+    // GetSpecificRestaurant: GetSpecificRestaurant
 };
