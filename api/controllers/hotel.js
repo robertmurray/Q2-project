@@ -37,7 +37,7 @@ function GetAllHotel(req, res){
     })
     .then((entityId) => {
       console.log('entityId', entityId);
-      fetch(`http://partners.api.skyscanner.net/apiservices/hotels/liveprices/v2/US/USD/en-US/${entityId}/2017-12-04/2017-12-05/2/1?apiKey=ga353167713168140635157121884401`)
+      fetch(`http://partners.api.skyscanner.net/apiservices/hotels/liveprices/v2/US/USD/en-US/${entityId}/2017-12-04/2017-12-05/2/1?apiKey=prtl6749387986743898559646983194`)
       .then((res) => {
         return res.json()
       })

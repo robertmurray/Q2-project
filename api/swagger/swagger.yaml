@@ -287,32 +287,32 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-    # post:
-    #   description: adding new a package for the user
-    #   operationId: PostUniquePackagePerUser
-    #   produces:
-    #     - application/json
-    #   parameters:
-    #     - name: id
-    #       type: integer
-    #       in: path
-    #       required: true
-    #       description: adding an package info into the user_package table
-    #     - name: body
-    #       in: body
-    #       description: adding an package to that user
-    #       required: true
-    #       schema:
-    #         $ref: "#/definitions/AddNewPackage"
-    #   responses:
-    #     "200":
-    #       description: Success
-    #       schema:
-    #         $ref: "#/definitions/GeneralPackage"
-    #     default:
-    #       description: Error
-    #       schema:
-    #         $ref: "#/definitions/ErrorResponse"
+    post:
+      description: adding new a package for the user
+      operationId: PostUniquePackagePerUser
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          type: integer
+          in: path
+          required: true
+          description: adding an package info into the user_package table
+        - name: package
+          in: body
+          description: adding an package to that user
+          required: true
+          schema:
+            $ref: "#/definitions/AddNewPackage"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralPackage"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
 
   /users/{user_id}/packages/{package_id}:
     x-swagger-router-controller: packages
@@ -505,27 +505,25 @@ definitions:
         type: integer
             
 
-  # AddNewPackage:
-  #   required:
-  #     - id
-  #     - budget
-  #     - flight_id
-  #     - restaurant_id
-  #     - hotel_id
-  #     - user_id
-  #   properties:
-  #     id:
-  #       type: integer
-  #     budget:
-  #       type: integer
-  #     flight_id:
-  #       type: string
-  #     restaurant_id:
-  #       type: string
-  #     hotel_id:
-  #       type: string
-  #     user_id:
-  #       type: string
+  AddNewPackage:
+    type: object
+    required:
+      - budget
+      - user_id
+      - current_city
+      - destination_city
+      - departure_date
+    properties:
+      budget:
+        type: integer
+      user_id:
+        type: integer
+      current_city:
+        type: string
+      destination_city:
+        type: string
+      departure_date:
+        type: string
 
   PackageDetail:
     type: object
@@ -565,34 +563,34 @@ definitions:
       hotels_cost:
         type: integer
 
-  # GeneralPackage:
-  #   type: object
-  #   required:
-  #     - id
-  #     - budget
-  #     - flight_id
-  #     - restaurant_id
-  #     - hotel_id
-  #     - user_id
-  #   properties:
-  #     id:
-  #       type: integer
-  #       description: package id
-  #     budget:
-  #       type: integer
-  #       description: amount of dollar
-  #     flight_id:
-  #       type: integer
-  #       description: the flight id
-  #     restaurant_id:
-  #       type: integer
-  #       description: the restaurant id
-  #     hotel_id:
-  #       type: integer
-  #       description: the hotel id
-  #     user_id:
-  #       type: integer
-  #       description: the user id
+  GeneralPackage:
+    type: object
+    required:
+      - id
+      - budget
+      - flight_id
+      - restaurant_id
+      - hotel_id
+      - user_id
+    properties:
+      id:
+        type: integer
+        description: package id
+      budget:
+        type: integer
+        description: amount of dollar
+      flight_id:
+        type: integer
+        description: the flight id
+      restaurant_id:
+        type: integer
+        description: the restaurant id
+      hotel_id:
+        type: integer
+        description: the hotel id
+      user_id:
+        type: integer
+        description: the user id
 
   GetRestaurantResponse:
     required:
