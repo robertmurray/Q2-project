@@ -1,15 +1,15 @@
+
 'use strict';
 var util = require('util');
 const knex = require('../../knex');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-as-promised');
+const jwt = require('jsonwebtoken');
 const express = require('express');
-// const router = express.Router();
+// const app = express();
+// const cookieParser = require('cookie-parser');
+// app.use(cookieParser())
 const dotenv = require('dotenv');
 dotenv.load()
-// app.use(cookieParse());
 
 function userLogin(req, res) {
     let authUser;
@@ -17,39 +17,39 @@ function userLogin(req, res) {
         .where('username', req.body.username)
         .first()
         .then((user) => {
-            console.log(user);
             if (!user) {
-                res.status(400).send('Invalid username');
+                res.set("Content-Type", "text/plain");
+                return res.status(400).send('Invalid username or password');
+            } else {
+                authUser = user;
+                return bcrypt.compare(req.body.password, authUser.hashed_password)
             }
-            authUser = user;
-            let hashed_pass = authUser.hashed_password;
-            return bcrypt.compare(req.body.password, hashed_pass)
-                .then((auth) => {
-                    if (!auth) {
-                        res.status(400).send('Invalid password');
-                    }
-                    // console.log(auth);
-                    const token = jwt.sign({
-                            id: authUser.id,
-                        },
-                        process.env.JWT_KEY);
-                    // let userInfo = {
-                    //   first_name: authUser.first_name,
-                    //   last_name: authUser.last_name,
-                    //   username: authUser.username,
-                    //   token: token
-                    // }
-                    // console.log('what is user info', userInfo);
-                    // console.log(token, typeof token);
-                    return res.status(200).json({ token })
-                })
-                .catch((err) => {
-                    return res.status(400).json('bad username or password')
-                })
         })
-        .catch((err) => {
-            return res.status(400).json('badusername or password')
-        });
+        .then((match) => {
+            if (match === false) {
+                res.status(400).send('Invalid username or password');
+                console.log('am i here');
+            } else if (match === true) {
+                const claim = {
+                    userId: authUser.id
+                };
+                const token = jwt.sign(claim, process.env.JWT_KEY, {
+                    expiresIn: '7 days'
+                });
+
+                let userInfo = {
+                    id: authUser.id,
+                    user_name: authUser.username,
+                    first_name: authUser.first_name,
+                    last_name: authUser.last_name,
+                    token: token
+                }
+                res.status(200).json(userInfo);
+            }
+        })
+        .catch((error) => {
+         return res.status(400).json('Bad email or password');
+        })
 };
 
 module.exports = {
