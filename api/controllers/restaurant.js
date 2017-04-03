@@ -35,8 +35,8 @@ function GetAllRestaurant(req, res) {
                 finalArray.push(result);
             });
             finalArray.sort((a,b) =>{ return b.view_count - a.view_count });
-            console.log(finalArray);
             res.status(200).json(finalArray);
+            // console.log(finalArray);
         })
         .catch(function(err) {
             console.error(err);
