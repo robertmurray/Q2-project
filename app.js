@@ -3,7 +3,7 @@
 // if (process.env.NODE_ENV!== 'production'){
 //   require('dotenv').config();
 // }
-let verify = require('./api/controllers/validation.js')
+// let verify = require('./api/controllers/validation.js')
 var SwaggerExpress = require('swagger-express-mw');
 var app = require('express')();
 

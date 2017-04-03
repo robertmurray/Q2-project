@@ -1,9 +1,8 @@
 'use strict';
-var util = require('util');
-var knex = require('../../knex.js')
+const util = require('util');
+const knex = require('../../knex.js')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-// const header = require('module-header')
 const request = require('request');
 const fetch = require('node-fetch');
 
@@ -29,9 +28,8 @@ function GetAllFlight(req, res) {
           let departureLocation = realRes['Places'].filter((place) => {
               return place.PlaceId === ele['OutboundLeg']['OriginId']
           })[0];
-
           let departureCity = 'airport: ' + departureLocation.SkyscannerCode + ', City: ' + departureLocation.Name;
-
+          console.log('departureCity', departureCity);
           let destinationLocation = realRes['Places'].filter((place) => {
               return place.PlaceId === ele['OutboundLeg']['DestinationId']
           })[0];

@@ -58,7 +58,6 @@ function AddUser(req, res) {
 }
 
 function GetSpecificUser(req, res) {
-  // console.log('what is this',req.swagger.params.id.value);
   knex('users')
     .where("id", req.swagger.params.id.value)
     .then((users) => {
@@ -66,9 +65,7 @@ function GetSpecificUser(req, res) {
         res.set('Content-Type', 'text/plain');
         res.status(404).send("This user is not found");
       } else {
-        // console.log('am i here', users);
         delete users[0].hashed_password
-        // console.log('what is user[0]', users[0]);
         res.json(users[0]);
       }
     })
@@ -152,7 +149,6 @@ function UpdateUser(req, res) {
 // };
 
 function DeleteUser(req, res, next) {
-  // let deletedUser;
   if (isNaN(req.swagger.params.id.value)) {
     res.set('Content-type', 'text/plain');
     res.status(404).send('Not Found');
@@ -160,31 +156,22 @@ function DeleteUser(req, res, next) {
     return knex('users').first()
       .where('id', req.swagger.params.id.value)
       .then((user) => {
-        // console.log('what is user', user);
         if (user === undefined) {
           res.set('Content-Type', 'text/plain');
           res.status(404).send('This ID is Not Found, Please try another one');
-          // next();
         } else {
           console.log('what is value,', req.swagger.params.id.value);
           return knex('users').returning('*')
             .where('id', req.swagger.params.id.value)
             .del();
-          // return user;
         }
       })
-      // .catch((error) => {
-      //   console.error(error)
-      // })
       .then((deletedContent) => {
-        // console.log('what is deletedContent', deletedContent);
         if (deletedContent) {
-          // console.log('am i here');
           delete deletedContent[0].hashed_password;
           res.status(200).json(deletedContent[0]);
         }
       })
-      //have a bug here
       .catch((error) => {
         res.set('Content-Type', 'text/plain');
         res.status(404).send('This ID is Not Found, Please try another one');
