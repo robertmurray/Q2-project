@@ -7,100 +7,82 @@ const fetch = require('node-fetch');
 // http://partners.api.skyscanner.net/apiservices/hotels/liveprices/v2/{market}/{currency}/{locale}/{entityid}/{checkindate}/{checkoutdate}/{guests}/{rooms}?apiKey={apiKey}
 // http://partners.api.skyscanner.net/apiservices/hotels/liveprices/v2/UK/EUR/en-GB/27539733/2017-12-04/2017-12-10/2/1?apiKey=prtl6749387986743898559646983194
 
-function convertCoordtoAddress(lat, long) {
-  return fetch(`http://www.mapquestapi.com/geocoding/v1/reverse?key=p4a2P2xDL91lyyxP13GGAhpLhCwq7nZW&location=${lat},${long}`)
-    .then((res) => {
-      return res.json();
-    })
-    .then((jayson) => {
-      let location = {};
-      // console.log('jayson.results[0].locations[0].street', jayson.results[0].locations[0].street);
-      location.street_name = jayson.results[0].locations[0].street;
-      location.city_name = jayson.results[0].locations[0].adminArea5;
-      return location
-    })
-    .catch((err) => {
-      throw err;
-    })
-}
+// function convertCoordtoAddress(lat, long) {
+//   return fetch(`http://www.mapquestapi.com/geocoding/v1/reverse?key=p4a2P2xDL91lyyxP13GGAhpLhCwq7nZW&location=${lat},${long}`)
+//     .then((res) => {
+//       return res.json();
+//     })
+//     .then((jayson) => {
+//       let location = {};
+//       // console.log('jayson.results[0].locations[0].street', jayson.results[0].locations[0].street);
+//       location.street_name = jayson.results[0].locations[0].street;
+//       location.city_name = jayson.results[0].locations[0].adminArea5;
+//       return location
+//     })
+//     .catch((err) => {
+//       throw err;
+//     })
+// }
+//
+// function GetAllHotel(req, res){
+//   //grap entity id for given city http://partners.api.skyscanner.net/apiservices/hotels/autosuggest/v2/{market}/{currency}/{locale}/{query}?apikey={apikey}
+//   let entityId;
+//   fetch('http://partners.api.skyscanner.net/apiservices/hotels/autosuggest/v2/US/USD/en-US/NYC?apiKey=prtl6749387986743898559646983194')
+//     .then((res) => {
+//       return res.json();
+//     })
+//     .then((jayson) => {
+//       return jayson.results[0].individual_id
+//     })
+//     .then((entityId) => {
+//       console.log('entityId', entityId);
+//       fetch(`http://partners.api.skyscanner.net/apiservices/hotels/liveprices/v2/US/USD/en-US/${entityId}/2017-12-04/2017-12-05/2/1?apiKey=prtl6749387986743898559646983194`)
+//       .then((res) => {
+//         return res.json()
+//       })
+//       .then((jayson) => {
+//         console.log('jayson', jayson);
+//         let finalObjs = [];
+//         let hotelPrices = jayson.hotels_prices.map((hotel) => {
+//           return hotel.agent_prices[0].price_total
+//         });
+//         console.log('hotelPrices', hotelPrices);
+//         let hotelObjects = jayson.hotels.map((hotel, index) => {
+//           let hotelObj = {};
+//           hotelObj.name = hotel.name;
+//           hotelObj.cost = hotelPrices[index];
+//           return convertCoordtoAddress(hotel.latitude, hotel.longitude)
+//             .then((location) => {
+//               hotelObj.street_name = location.street_name;
+//               hotelObj.city_name = location.city_name;
+//               // console.log(hotelObj);
+//               finalObjs.push(hotelObj);
+//               console.log('finalObjs', finalObjs);
+//               return hotelObj;
+//             })
+//           return hotelObj;
+//         })
+//         return Promise.all(hotelObjects)
+//           .then((hotelsArr) => {
+//             console.log('hotelsArr', hotelsArr);
+//             res.send(hotelsArr)
+//           })
+//       })
+//       .catch((err) => {
+//         throw err;
+//       })
+//     })
+//     .catch((err) => {
+//       throw err
+//     })
+// };
 
-function GetAllHotel(req, res){
-  //grap entity id for given city http://partners.api.skyscanner.net/apiservices/hotels/autosuggest/v2/{market}/{currency}/{locale}/{query}?apikey={apikey}
-  let entityId;
-  fetch('http://partners.api.skyscanner.net/apiservices/hotels/autosuggest/v2/US/USD/en-US/NYC?apiKey=prtl6749387986743898559646983194')
-    .then((res) => {
-      return res.json();
-    })
-    .then((jayson) => {
-      // entityId = jayson.results[0].individual_id
-      return jayson.results[0].individual_id
-    })
-    .then((entityId) => {
-      console.log('entityId', entityId);
-      fetch(`http://partners.api.skyscanner.net/apiservices/hotels/liveprices/v2/US/USD/en-US/${entityId}/2017-12-04/2017-12-05/2/1?apiKey=prtl6749387986743898559646983194`)
-      .then((res) => {
-        return res.json()
-      })
-      .then((jayson) => {
-        console.log('jayson', jayson);
-        let finalObjs = [];
-        let hotelPrices = jayson.hotels_prices.map((hotel) => {
-          return hotel.agent_prices[0].price_total
-        });
-        console.log('hotelPrices', hotelPrices);
-        let hotelObjects = jayson.hotels.map((hotel, index) => {
-          let hotelObj = {};
-          hotelObj.name = hotel.name;
-          hotelObj.cost = hotelPrices[index];
-          return convertCoordtoAddress(hotel.latitude, hotel.longitude)
-            .then((location) => {
-              hotelObj.street_name = location.street_name;
-              hotelObj.city_name = location.city_name;
-              // console.log(hotelObj);
-              finalObjs.push(hotelObj);
-              console.log('finalObjs', finalObjs);
-              return hotelObj;
-            })
-          return hotelObj;
-        })
-        // console.log('hotelObjects', hotelObjects);
-        // console.log('finalObjs2', finalObjs);
-        return Promise.all(hotelObjects)
-          .then((hotelsArr) => {
-            console.log('hotelsArr', hotelsArr);
-            res.send(hotelsArr)
-          })
-      })
-      .catch((err) => {
-        throw err;
-      })
-    })
-    .catch((err) => {
-      throw err
-    })
-  //   , (err, res, body) => {
-  //   let jayson = JSON.parse(body);
-  //   console.log('hotel Autosuggest', jayson);
-  //   console.log('first entityid', jayson.results[0].individual_id);
-  //   entityid = jayson.results[0].individual_id;
-  // });
-  // request('http://partners.api.skyscanner.net/apiservices/hotels/liveprices/v2/US/USD/en-US/${entityid}/2017-12-04/2017-12-06/2/1?apiKey=prtl6749387986743898559646983194', (err, res, body) => {
-  //   const fetchRes = JSON.parse(body);
-  //   let hotelIdAndPrice = fetchRes.hotels_prices.map((hotel) => {
-  //     return [hotel.id, hotel.agent_prices[0].price_total]
-  //   })
-  //   console.log(hotelIdAndPrice);
-  //   let hotelObj = hotelIdAndPrice.forEach((hotel) => {
-  //     let obj = {}
-  //     let matched = fetchRes.hotels.find((hotelObj) => {
-  //         hotelObj.hotel_id === hotel[0]
-  //       })
-  //       obj.id = hotel[0];
-  //       obj.cost = hotel[1];
-  //       obj.name = matched.name;
-  //       console.log(obj);
-  //   })
-  // })
+function GetAllHotel(req, res) {
+  return knex('hotels')
+    .then((hotels) => {
+      console.log(hotels);
+      res.send(hotels);
+    });
 };
 
 function GetSpecificHotel(req, res){

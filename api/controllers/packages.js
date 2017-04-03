@@ -2,7 +2,13 @@
 var util = require('util');
 var knex = require('../../knex.js')
 const fetch = require('node-fetch');
-const yelp = require('yelp')
+const Yelp = require('yelp')
+let yelp = new Yelp({
+    consumer_key: process.env.CONSUMER_KEY,
+    consumer_secret: process.env.CONSUMER_SECRET,
+    token: process.env.TOKEN,
+    token_secret: process.env.TOKEN_SECRET,
+});
 
 function GetAllPackagePerUser(req, res, err) {
     // console.log('did i get here?');
@@ -33,7 +39,6 @@ function GetAllPackagePerUser(req, res, err) {
         })
 }
 
-<<<<<<< HEAD
 function PostUniquePackagePerUser(req, res) {
     let current_city = req.body.current_city;
     let destination_city = req.body.destination_city;
@@ -42,9 +47,10 @@ function PostUniquePackagePerUser(req, res) {
     let flight_cost;
     let airline;
     let carrierId;
+    let user_id = req.swagger.params.id.value;
     fetch(`http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/${current_city}/${destination_city}/${date}/${date}?apikey=${process.env.FLIGHTAPI}`)
-        .then((res) => {
-            return res.json();
+        .then((response) => {
+            return response.json();
         })
         .then((jayson) => {
             flight_cost = jayson.Quotes[0].MinPrice;
@@ -53,42 +59,81 @@ function PostUniquePackagePerUser(req, res) {
             }
             carrierId = jayson.Quotes[0].OutboundLeg.CarrierIds[0];
             airline = jayson.Carriers.find((carrierObj) => {
-                carrierObj.CarrierId === carrierId
+                return carrierObj.CarrierId === carrierId
             })
             return jayson
         })
-        .then((res) => {
+        .then((response) => {
             return knex('user_packages')
                 .insert({
                     budget: budget,
-                    user_id: req.swagger.params.id.value
+                    user_id
                 }, 'id')
                 .then((package_id) => {
-                  return knex('flights')
-                    .insert({
-                      airline: airline,
-                      departure_city: current_city,
-                      destination_city: destination_city,
-                      departure_date: date,
-                      arrival_date: date,
-                      cost: flight_cost
-                    }, 'id')
-                    .then((flight_id) => {
-                      console.log('flight_id', flight_id[0], 'package_id', package_id[0]);
-                      return knex('flight_package')
+                    return knex('flights')
                         .insert({
-                          flight_id: flight_id[0],
-                          package_id: package_id[0]
-                        }, 'package_id')
-                        .then((package_id) => {
-                          yelp.search({ term: 'restaurant', location: destination_city, limit:20})
-                            .then((res) => {
-                              console.log('package_id', package_id, 'res', res);
-                                
-                            })
+                            airline: airline.Name,
+                            departure_city: current_city,
+                            destination_city: destination_city,
+                            departure_date: date,
+                            arrival_date: date,
+                            cost: flight_cost
+                        }, 'id')
+                        .then((flight_id) => {
+                            return knex('flight_package')
+                                .insert({
+                                    flight_id: flight_id[0],
+                                    package_id: package_id[0]
+                                }, 'package_id')
+                                .then((package_id) => {
+                                    yelp.search({
+                                            term: 'food',
+                                            location: destination_city,
+                                            limit: 1,
+                                            rating: 4
+                                        })
+                                        .then((response) => {
+                                            let restaurant = response.businesses[0]
+                                            return knex('restaurants')
+                                                .insert({
+                                                    name: restaurant.name,
+                                                    street_name: restaurant.location.address[0],
+                                                    city_name: restaurant.location.city,
+                                                    view_count: restaurant.review_count
+                                                }, 'id')
+                                                .then((restaurant_id) => {
+                                                    return knex('restaurant_package')
+                                                        .insert({
+                                                            restaurant_id: restaurant_id[0],
+                                                            package_id: package_id[0]
+                                                        }, 'package_id')
+                                                        .then((package_id) => {
+                                                          return knex('hotel_package')
+                                                            .insert({
+                                                                hotel_id: 4,
+                                                                package_id: package_id[0]
+                                                            })
+                                                            .then((response) => {
+                                                              res.send({
+                                                                    user_id,
+                                                                    package_id: package_id[0],
+                                                                    airline: airline.Name,
+                                                                    flight_id: flight_id[0],
+                                                                    flight_cost,
+                                                                    restaurant_name: restaurant.name,
+                                                                    restaurant_id: restaurant_id[0],
+                                                                    hotels_name: 'Chateau Tivoli Bed & Breakfast Inn',
+                                                                    hotels_id: 4,
+                                                                    hotels_cost: 350}
+                                                                  );
+                                                            })
 
+                                                        })
+                                                })
+                                        })
+
+                                })
                         })
-                    })
                 })
         })
         .catch((err) => {
@@ -112,9 +157,9 @@ function GetUniquePackageUniqueUser(req, res, err) {
         .returning('*')
         .then((result) => {
             if (result) {
-                console.log('what is result, kevin', result[0]);
+                console.log('what is result, kevin', result);
                 res.set('Content-Type', 'application/json');
-                res.send(result[0]);
+                res.send(result);
             } else {
                 res.status(400);
                 res.send('this is not a valid input');
@@ -126,19 +171,8 @@ function GetUniquePackageUniqueUser(req, res, err) {
         })
 }
 
-
-//
-// function UpdateUniquePackageUniqueUser() {
-//
-// }
-//
-// function DeleteUniquePackageUniqueUser() {
-//
-// }
 module.exports = {
     GetAllPackagePerUser: GetAllPackagePerUser,
     PostUniquePackagePerUser: PostUniquePackagePerUser,
     GetUniquePackageUniqueUser: GetUniquePackageUniqueUser,
-    // UpdateUniquePackageUniqueUser: UpdateUniquePackageUniqueUser,
-    // DeleteUniquePackageUniqueUser: DeleteUniquePackageUniqueUser
 }
