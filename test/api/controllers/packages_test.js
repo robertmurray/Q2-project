@@ -47,14 +47,15 @@ describe('package routes', () => {
         airline: 'Singapore Airlines',
         flight_id: 3,
         flight_cost: 668,
-        restaurant_name: 'Alba Ray’s',
+        restaurant_name: 'Saigon Sandwich',
         restaurant_id: 3,
-        restaurants_review: 200,
+        restaurants_review: 2789,
         hotels_name: 'Gucci Mane Hotel',
         hotels_id: 3,
         hotels_cost: 150
       }], done)
   })
+
 
   it('GET /users/{id}/package', (done) => {
     request(app)
