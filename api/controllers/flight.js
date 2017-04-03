@@ -60,7 +60,7 @@ function GetAllFlight(req, res) {
         })
         // knex('flight').insert([])
         // console.log('am i here');
-        // console.log('what is newArray?', newArray);
+        console.log('what is newArray?', newArray);
 
         res.status(200).json(newArray);
   })

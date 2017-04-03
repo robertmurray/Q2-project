@@ -17,7 +17,9 @@ var config = {
 // app.use('/flight', verify.middlewareVerify);
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
-  if (err) { throw err; }
+  if (err) {
+    throw err;
+  }
 
   // install middleware
   swaggerExpress.register(app);
