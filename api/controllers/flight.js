@@ -9,7 +9,8 @@ const fetch = require('node-fetch');
  // comment here
 function GetAllFlight(req, res) {
   // add comment here
-  fetch("http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=" + process.env.FLIGHTAPI)
+  // use the below syntax 
+  fetch(`http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/US/USD/en-US/us/anywhere/anytime/anytime?apikey=${process.env.FLIGHTAPI}`)
     .then((response) => {
       return response.json();
     })
